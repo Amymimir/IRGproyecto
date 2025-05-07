@@ -1,21 +1,24 @@
-// servicios/Plato.js
 const pool = require('../baseDatos/db');
 
 async function crearPlato({ nombre_plato, tipo, id_categoria, id_restaurante }) {
   const query = `
     INSERT INTO platos (nombre_plato, tipo, id_categoria, id_restaurante)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *;
+    VALUES (?, ?, ?, ?)
   `;
-  const values = [nombre_plato, tipo, id_categoria, id_restaurante];
-  const resultado = await pool.query(query, values);
-  return resultado.rows[0];
+  const [resultado] = await pool.execute(query, [nombre_plato, tipo, id_categoria, id_restaurante]);
+
+  return {
+    id: resultado.insertId,
+    nombre_plato,
+    tipo,
+    id_categoria,
+    id_restaurante
+  };
 }
 
 async function obtenerPlatos() {
-  const query = 'SELECT * FROM platos';
-  const resultado = await pool.query(query);
-  return resultado.rows;
+  const [rows] = await pool.query('SELECT * FROM platos');
+  return rows;
 }
 
 module.exports = {

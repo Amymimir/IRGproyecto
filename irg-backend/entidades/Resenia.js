@@ -1,5 +1,4 @@
-// servicios/Resenia.js
-const pool = require('../baseDatos/db');  // Usamos el pool directamente
+const pool = require('../baseDatos/db');
 
 async function crearResenia(data) {
   const {
@@ -18,8 +17,7 @@ async function crearResenia(data) {
       p1_texto, p2_texto, p3_texto, p4_texto, p5_texto,
       promedio_estrellas
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
-    RETURNING *;
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   const values = [
@@ -29,22 +27,18 @@ async function crearResenia(data) {
     promedio
   ];
 
-  try {
-    const resultado = await pool.query(query, values);
-    return resultado.rows[0];
-  } catch (error) {
-    throw new Error('Error al crear la reseña: ' + error.message);
-  }
+  const [resultado] = await pool.execute(query, values);
+
+  return {
+    id: resultado.insertId,
+    ...data,
+    promedio_estrellas: promedio
+  };
 }
 
 async function obtenerResenias() {
-  const query = 'SELECT * FROM resenias';
-  try {
-    const resultado = await pool.query(query);
-    return resultado.rows;
-  } catch (error) {
-    throw new Error('Error al obtener las reseñas: ' + error.message);
-  }
+  const [rows] = await pool.query('SELECT * FROM resenias');
+  return rows;
 }
 
 module.exports = {

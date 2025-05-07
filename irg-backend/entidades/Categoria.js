@@ -1,19 +1,18 @@
-// servicios/Categoria.js
 const pool = require('../baseDatos/db');
 
 async function crearCategoria(nombre_categoria) {
-  const query = 'INSERT INTO categorias (nombre_categoria) VALUES ($1) RETURNING *';
-  const values = [nombre_categoria];
+  const query = 'INSERT INTO categorias (nombre_categoria) VALUES (?)';
+  const [resultado] = await pool.execute(query, [nombre_categoria]);
 
-  const resultado = await pool.query(query, values);
-  return resultado.rows[0];
+  return {
+    id: resultado.insertId,
+    nombre_categoria
+  };
 }
 
 async function obtenerCategorias() {
-  const query = 'SELECT * FROM categorias';
-
-  const resultado = await pool.query(query);
-  return resultado.rows;
+  const [rows] = await pool.query('SELECT * FROM categorias');
+  return rows;
 }
 
 module.exports = {

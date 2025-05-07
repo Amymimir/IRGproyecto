@@ -1,21 +1,24 @@
-// servicios/Usuario.js
 const pool = require('../baseDatos/db');
 
 async function registrarUsuario({ nombre, apellidos, telefono, ciudad }) {
   const query = `
     INSERT INTO usuarios (nombre, apellidos, telefono, ciudad)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *;
+    VALUES (?, ?, ?, ?)
   `;
-  const values = [nombre, apellidos, telefono, ciudad];
-  const resultado = await pool.query(query, values);
-  return resultado.rows[0];
+  const [resultado] = await pool.execute(query, [nombre, apellidos, telefono, ciudad]);
+
+  return {
+    id: resultado.insertId,
+    nombre,
+    apellidos,
+    telefono,
+    ciudad
+  };
 }
 
 async function obtenerUsuarios() {
-  const query = 'SELECT * FROM usuarios';
-  const resultado = await pool.query(query);
-  return resultado.rows;
+  const [rows] = await pool.query('SELECT * FROM usuarios');
+  return rows;
 }
 
 module.exports = {
