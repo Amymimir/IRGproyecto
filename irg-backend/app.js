@@ -1,9 +1,6 @@
-//Iniciamos servidor
-//Conectamos con base de datos
-
 const express = require('express');
 const usuarioRutas = require('./rutas/usuarioRuta');
-const conectarDB = require('./baseDatos/db'); 
+const pool = require('./baseDatos/db'); // Este ya es el pool de MySQL
 
 const app = express();
 app.use(express.json());
@@ -12,17 +9,20 @@ app.use(express.json());
 app.use('/usuarios', usuarioRutas);
 
 // Verificar conexión al iniciar
-conectarDB()
-  .then(client => {
-    console.log('Conectado a PostgreSQL');
-    client.release(); // muy importante: liberar cliente al usar Pool
+async function iniciarServidor() {
+  try {
+    const connection = await pool.getConnection();
+    console.log('Conectado a MySQL');
+    connection.release(); // ¡Importante! Liberar conexión
 
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-      console.log(`Servidor escuchando en puerto ${PORT}`);
+      console.log(`Servidor iniciado en puerto ${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error('Error al conectar con PostgreSQL:', err.message);
-    process.exit(1); // Detiene el servidor si no hay DB
-  });
+  } catch (error) {
+    console.error('Error al conectar con MySQL:', error.message);
+    process.exit(1); // Detiene el servidor si falla la conexión
+  }
+}
+
+iniciarServidor();
