@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type HeaderProps = {
     restaurantName: string;
@@ -6,28 +7,34 @@ type HeaderProps = {
 
 export default function Header({ restaurantName }: HeaderProps) {
     return (
-        <View style={styles.header}>
-            <Image source={require('../assets/images/logo.png')} style={styles.logo} />
-            <Text style={styles.name}>{restaurantName}</Text>
-        </View>
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.header}>
+                <Image source={require('../assets/images/logo.png')} style={styles.logo} resizeMode="contain" />
+                <Text style={styles.name}>{restaurantName}</Text>
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        backgroundColor: '#f2ebdd',
+    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 16,
-        backgroundColor: '#000', 
+        backgroundColor: '#f2ebdd',
     },
     logo: {
-        width: 40,
-        height: 40,
-        marginRight: 8
+        width: 50,
+        height: 50,
+        marginRight: 12,
     },
     name: {
-        color: 'white',
-        fontSize: 20,
-        fontFamily: 'Playfair'
-    }
+        fontSize: 22,
+        fontFamily: 'Playfair',
+        color: '#6c1f2c',
+        fontWeight: 'bold',
+    },
 });
