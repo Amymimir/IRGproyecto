@@ -16,18 +16,17 @@ export default function MenuCard({ title, onPress }: MenuCardProps) {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
-        padding: 16,
-        borderRadius: 12,
-        marginVertical: 8,
-        width: '100%',
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
-        elevation: 4
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        marginVertical: 10,
+        borderWidth: 1,
+        borderColor: '#6c1f2c',
     },
     title: {
         fontSize: 18,
-        fontFamily: 'Inter',
-        color: '#333'
-    }
+        fontFamily: 'Playfair',
+        color: '#6c1f2c',
+        textAlign: 'center',
+    },
 });
