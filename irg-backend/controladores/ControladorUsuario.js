@@ -2,7 +2,7 @@
 // Peticiones HTTP
 // Guardar o buscar datos
 
-const usuarioService = require('./servicios/Registro');
+const usuarioService = require('../servicios/Registro');
 
 async function crearUsuario(req, res) {
   const { nombre, apellidos, telefono, ciudad } = req.body;

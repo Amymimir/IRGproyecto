@@ -1,4 +1,4 @@
-const pool = require('../baseDatos/db');
+const pool = require('../BBDD/db');
 
 async function crearRestaurante(clave_acceso) {
   const query = `

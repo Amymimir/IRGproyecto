@@ -1,4 +1,4 @@
-const pool = require('../baseDatos/db');
+const pool = require('../BBDD/db');
 
 async function registrarUsuario({ nombre, apellidos, telefono, ciudad }) {
   const query = `
