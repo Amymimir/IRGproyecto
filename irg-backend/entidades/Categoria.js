@@ -1,4 +1,4 @@
-const pool = require('../baseDatos/db');
+const pool = require('../BBDD/db');
 
 async function crearCategoria(nombre_categoria) {
   const query = 'INSERT INTO categorias (nombre_categoria) VALUES (?)';

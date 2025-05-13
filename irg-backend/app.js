@@ -1,12 +1,14 @@
 const express = require('express');
 const usuarioRutas = require('./rutas/usuarioRuta');
-const pool = require('./baseDatos/db'); // Este ya es el pool de MySQL
+const restauranteRutas = require('./rutas/restauranteRuta');
+const pool = require('./BBDD/db'); // Este ya es el pool de MySQL
 
 const app = express();
 app.use(express.json());
 
 // Rutas
 app.use('/usuarios', usuarioRutas);
+app.use('/restaurantes', restauranteRutas);
 
 // Verificar conexión al iniciar
 async function iniciarServidor() {
@@ -26,3 +28,4 @@ async function iniciarServidor() {
 }
 
 iniciarServidor();
+

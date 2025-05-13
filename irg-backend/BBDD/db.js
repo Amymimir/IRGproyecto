@@ -1,29 +1,27 @@
-const mysql = require('mysql');
+const mysql = require('mysql2/promise'); // Usa mysql2 con promesas
 
-let conexion = mysql.createConnection({
-  host: "localhost",
-  database: "cataoculta",
-  user: "root",
-  password: ""
-})
-
-conexion.connect(function(err){
-  if(err){
-    throw err;
-  }else{
-    console.log("conexion exitosa");
-  }
-});
-
-
-/*const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'tu_usuario',       // Por defecto: 'root' en XAMPP
-  password: 'tu_contraseña',// Deja vacío si no has puesto una
-  database: 'registro_usuarios',
+const pool = mysql.createPool({
+  host: '127.0.0.1',
+  port: 3307, 
+  user: 'root',              // Cambia si usas otro usuario
+  password: '',              // O pon tu contraseña si tienes una
+  database: 'cataoculta',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
 
-module.exports = pool;*/ 
+async function testConnection() {
+  try {
+    const connection = await pool.getConnection();
+    console.log("Conexión exitosa a MySQL");
+    connection.release(); // Libera la conexión después de usarla
+  } catch (err) {
+    console.error("Error al conectar con MySQL:", err.message);
+    console.error("Detalles del error:", err); // Loguear todo el objeto del error
+  }
+}
+
+testConnection();
+module.exports = pool;
+
