@@ -90,4 +90,31 @@ export const styles = StyleSheet.create({
   backButton: {
     marginTop: 10,
   },
+  counterContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  
+  counterText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#6c1f2c',
+    fontFamily: 'Playfair',
+    marginBottom: 4,
+  },
+  
+  counterNumber: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#729c8c',
+    fontFamily: 'Playfair',
+  },
 });

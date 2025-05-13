@@ -1,9 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView, Text, StyleSheet, View, Button } from 'react-native';
-import Header from '../../components/Header';
-import Ranking from '../../components/Ranking';
-import MenuCard from '../../components/MenuCard';
-import { restaurantsData } from '../../constants/data';
+import Header from '../../../components/Header';
+import Ranking from '../../../components/Ranking';
+import MenuCard from '../../../components/MenuCard';
+import { restaurantsData } from '../../../constants/data';
 
 export default function RestaurantPage() {
     const { id } = useLocalSearchParams();
@@ -15,7 +15,7 @@ export default function RestaurantPage() {
         return (
             <View style={styles.notFoundContainer}>
                 <Text style={styles.notFoundText}>Restaurante no encontrado</Text>
-                <Button title="Volver al inicio" onPress={() => router.replace('../')} />
+                <Button title="Volver a buscar" onPress={() => router.push('../')} />
             </View>
         );
     }

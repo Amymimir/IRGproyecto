@@ -1,7 +1,7 @@
 import { View, ScrollView, StyleSheet, TextInput, Text } from 'react-native';
-import Header from '../components/Header';
-import Ranking from '../components/Ranking';
-import MenuCard from '../components/MenuCard';
+import Header from '../../components/Header';
+import Ranking from '../../components/Ranking';
+import MenuCard from '../../components/MenuCard';
 
 export default function LandingPageResto() {
   return (

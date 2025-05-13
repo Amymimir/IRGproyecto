@@ -17,7 +17,7 @@ export default function Index() {
     return (
         <>
             <View style={styles.container}>
-                <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+                <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
                 <Text style={styles.title}>¿En qué restaurante estás?</Text>
                 <TextInput
                     value={search}
@@ -32,8 +32,18 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignContent: 'center', padding: 20, backgroundColor: "#f2ebdd" },
-    title: { fontSize: 18, marginBottom: 20, textAlign: 'center' },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        padding: 20,
+        backgroundColor: "#f2ebdd"
+    },
+    title: {
+        fontSize: 18,
+        marginBottom: 20,
+        textAlign: 'center'
+    },
     input: {
         backgroundColor: '#fff',
         borderRadius: 8,
