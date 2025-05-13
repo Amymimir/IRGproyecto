@@ -11,7 +11,7 @@ async function crearResenia(data) {
   const promedio = parseFloat((total / 5).toFixed(2));
 
   const query = `
-    INSERT INTO resenias (
+    INSERT INTO resenas (
       id_usuario, id_plato,
       p1_satisfaccion, p2_satisfaccion, p3_satisfaccion, p4_satisfaccion, p5_satisfaccion,
       p1_texto, p2_texto, p3_texto, p4_texto, p5_texto,
@@ -37,7 +37,7 @@ async function crearResenia(data) {
 }
 
 async function obtenerResenias() {
-  const [rows] = await pool.query('SELECT * FROM resenias');
+  const [rows] = await pool.query('SELECT * FROM resenas');
   return rows;
 }
 

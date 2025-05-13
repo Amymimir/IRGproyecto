@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-
 import { styles } from '../../constants/style';
 import { router } from 'expo-router';
 
@@ -54,7 +53,10 @@ export default function RegisterScreen() {
       <View style={styles.clusterContainer}>
         <Text style={styles.clusterText}>Madrid</Text>
         <TouchableOpacity style={styles.clusterButton}>
-          <Text style={styles.clusterButtonText}>Enviar</Text>
+          <Text
+            style={styles.clusterButtonText}
+            onPress={() => router.replace('/cliente/restoBuscador')}
+          >Enviar</Text>
         </TouchableOpacity>
       </View>
 
@@ -69,7 +71,6 @@ export default function RegisterScreen() {
             borderWidth: 1,
             borderColor: '#5C5C5C',
             borderRadius: 6,
-            backgroundColor: '#FFF',
             marginRight: 10,
             backgroundColor: formData.terminos ? '#007AFF' : '#FFF'
           }}
@@ -81,7 +82,7 @@ export default function RegisterScreen() {
 
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => router.back()}
+        onPress={() => router.push('/')}
       >
         <Text>Volver</Text>
       </TouchableOpacity>
