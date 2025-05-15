@@ -1,4 +1,4 @@
-const pool = require('../baseDatos/db');
+const pool = require('../BBDD/db');
 
 async function crearPlato({ nombre_plato, tipo, id_categoria, id_restaurante }) {
   const query = `

@@ -1,5 +1,6 @@
 // servicios/usuarioService.js
-const { registrarUsuario: registrarEnDB, obtenerUsuarios: obtenerDeDB } = require('./Usuario');
+const { registrarUsuario: registrarEnDB, obtenerUsuarios: obtenerDeDB } = require('../entidades/Usuario');
+
 
 // Registrar un nuevo usuario
 async function registrarUsuario(data) {
@@ -9,7 +10,7 @@ async function registrarUsuario(data) {
   }
 
   try {
-    // Insertar usuario en PostgreSQL
+    // Insertar usuario en MySQL
     return await registrarEnDB(data);
   } catch (error) {
     throw new Error('Error al guardar el usuario: ' + error.message);
