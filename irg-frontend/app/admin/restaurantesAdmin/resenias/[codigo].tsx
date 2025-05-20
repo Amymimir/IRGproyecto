@@ -1,16 +1,10 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { restaurantsData, restaurantAliases } from '../../../../constants/data';
 
 const mockReviews: Record<string, { title: string; description: string; date: string; }[]> = {
     astor2024: [
         { title: 'Excelente comida', description: 'Todo riquísimo, volveremos pronto.', date: '2024-05-01' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
-        { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
         { title: 'Atención rápida', description: 'Muy buena atención al cliente.', date: '2024-04-28' },
     ],
     tacos2023: [
@@ -22,12 +16,17 @@ const mockReviews: Record<string, { title: string; description: string; date: st
 export default function VerReseniasPage() {
     const { codigo } = useLocalSearchParams();
     const router = useRouter();
+
+    const resolvedCodigo = restaurantAliases[codigo as string] || codigo;
+    const restaurant = restaurantsData[resolvedCodigo as string];
+    const restaurantName = restaurant?.name || codigo;
+
     const reviews = mockReviews[codigo as string] || [];
 
     if (reviews.length === 0) {
         return (
             <View style={styles.notFoundContainer}>
-                <Text style={styles.notFoundText}>No hay reseñas disponibles para este restaurante.</Text>
+                <Text style={styles.notFoundText}>No hay reseñas disponibles para {restaurantName}.</Text>
                 <TouchableOpacity onPress={() => router.replace(`/admin/restaurantesAdmin/eleccionResto?codigo=${codigo}`)} style={styles.backButton}>
                     <Text style={styles.backText}>Volver</Text>
                 </TouchableOpacity>
@@ -43,7 +42,7 @@ export default function VerReseniasPage() {
                 <Text style={styles.backText}>Volver</Text>
             </TouchableOpacity>
 
-            <Text style={styles.title}>Reseñas de {codigo}</Text>
+            <Text style={styles.title}>Reseñas de {restaurantName}</Text>
 
             {sortedReviews.map((review, index) => (
                 <View key={index} style={styles.reviewCard}>

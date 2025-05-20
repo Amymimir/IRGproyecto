@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
+import { ArrowLeft } from 'lucide-react-native';
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -52,7 +53,7 @@ export default function RegisterScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity onPress={() => router.replace('/')} style={styles.backButton}>
-        <Text style={styles.backText}>Volver</Text>
+        <ArrowLeft size={30} color="#000" />
       </TouchableOpacity>
 
       <View style={styles.formContainer}>
@@ -84,7 +85,7 @@ export default function RegisterScreen() {
           <Text style={styles.prefix}>+34</Text>
           <TextInput
             style={[styles.input, styles.phoneInput]}
-            placeholder="número de teléfono"
+            placeholder="Número de teléfono"
             keyboardType="number-pad"
             maxLength={9}
             value={formData.telefono}
@@ -140,9 +141,10 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'Inter_600SemiBold',
-    fontSize: 14,
-    color: '#5C5C5C',
+    fontSize: 15,
+    color: '#171717',
     marginTop: 10,
+    marginBottom: 5,
   },
   input: {
     backgroundColor: '#FFF',
@@ -226,19 +228,12 @@ const styles = StyleSheet.create({
     color: '#729c8c',
     fontFamily: 'Playfair',
   },
-  backText: {
-    fontSize: 16,
-  },
   backButton: {
     position: 'absolute',
-    top: 30,
-    left: 25,
+    top: 17,
+    left: 15,
     zIndex: 1,
-    backgroundColor: '#f7e6c3',
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#ffffff',
-    borderRadius: 10,
+    padding: 7
   },
   formContainer: {
     justifyContent: 'center',

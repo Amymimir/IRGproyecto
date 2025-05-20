@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable, Alert, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { ArrowLeft } from "lucide-react-native";
 
 export default function ResenaCliente() {
     const router = useRouter();
@@ -102,8 +103,8 @@ export default function ResenaCliente() {
 
     return (
         <ScrollView style={styles.container}>
-            <TouchableOpacity onPress={() => router.push('../')} style={styles.backButton}>
-                <Text style={styles.backText}>Volver</Text>
+            <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
+                <ArrowLeft size={30} color="#000" />
             </TouchableOpacity>
             <Text style={styles.title}>Reseña del {esBebida ? "Bebida" : "Plato"}</Text>
 

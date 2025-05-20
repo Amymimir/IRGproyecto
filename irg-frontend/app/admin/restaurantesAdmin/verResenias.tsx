@@ -1,5 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { ArrowLeft } from 'lucide-react-native';
+import { restaurantsData } from '../../../constants/data';
 
 const mockReviews = [
     { title: 'Excelente comida', description: 'Todo riquísimo, volveremos pronto.', date: '2024-05-01' },
@@ -11,15 +13,18 @@ export default function VerReseñas() {
     const { codigo } = useLocalSearchParams();
     const router = useRouter();
 
+    const restaurant = restaurantsData[codigo as string];
+    const restaurantName = restaurant?.name || codigo;
+
     const sortedReviews = mockReviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <TouchableOpacity onPress={() => router.push(`../`)} style={styles.backButton}>
-                <Text style={styles.backText}>Volver</Text>
+            <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
+                <ArrowLeft size={30} color="#000" />
             </TouchableOpacity>
 
-            <Text style={styles.title}>Reseñas de {codigo}</Text>
+            <Text style={styles.title}>Reseñas de {restaurantName}</Text>
 
             {sortedReviews.map((review, index) => (
                 <View key={index} style={styles.reviewCard}>
@@ -33,12 +38,45 @@ export default function VerReseñas() {
 }
 
 const styles = StyleSheet.create({
-    container: { padding: 16, backgroundColor: '#f2ebdd' },
-    backButton: { marginBottom: 16, backgroundColor: '#6c1f2c', padding: 8, borderRadius: 5 },
-    backText: { color: '#fff', textAlign: 'center' },
-    title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16, textAlign: 'center' },
-    reviewCard: { backgroundColor: '#fff', padding: 16, borderRadius: 8, marginBottom: 12, borderWidth: 1, borderColor: '#ddd' },
-    reviewTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 4 },
-    reviewDescription: { fontSize: 14, marginBottom: 4 },
-    reviewDate: { fontSize: 12, color: '#555' },
+    container: {
+        padding: 16,
+        backgroundColor: '#f2ebdd'
+    },
+    backButton: {
+        marginBottom: 16,
+        backgroundColor: '#6c1f2c',
+        padding: 8,
+        borderRadius: 5
+    },
+    backText: {
+        color: '#fff',
+        textAlign: 'center'
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center'
+    },
+    reviewCard: {
+        backgroundColor: '#fff',
+        padding: 16,
+        borderRadius: 8,
+        marginBottom: 12,
+        borderWidth: 1,
+        borderColor: '#ddd'
+    },
+    reviewTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 4
+    },
+    reviewDescription: {
+        fontSize: 14,
+        marginBottom: 4
+    },
+    reviewDate: {
+        fontSize: 12,
+        color: '#555'
+    },
 });

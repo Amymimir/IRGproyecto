@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { ArrowLeft } from 'lucide-react-native';
 
 const codigosValidos = ['astor2024', 'tacos2023'];
 
@@ -25,8 +26,8 @@ export default function EscribirClave() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => router.replace('/')} style={styles.backButton}>
-                <Text style={styles.backText}>Volver</Text>
+            <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
+                <ArrowLeft size={30} color="#000" />
             </TouchableOpacity>
             <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
             <Text style={styles.title}>Ingresá el código de tu restaurante</Text>
@@ -44,10 +45,39 @@ export default function EscribirClave() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#f2ebdd' },
-    title: { fontSize: 18, marginBottom: 20, textAlign: 'center' },
-    input: { backgroundColor: '#fff', borderRadius: 8, padding: 10, marginBottom: 10, borderWidth: 1, borderColor: '#ccc' },
-    logo: { width: 100, height: 100, alignSelf: 'center', marginBottom: 20 },
-    backText: { fontSize: 16 },
-    backButton: { position: 'absolute', top: 30, left: 25, zIndex: 1, backgroundColor: '#f2e3c4', padding: 6, borderWidth: 0.5, borderColor: '#000', borderRadius: 5 }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#f2ebdd'
+    },
+    title: {
+        fontSize: 18,
+        marginBottom: 20,
+        textAlign: 'center'
+    },
+    input: {
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#ccc'
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
+        marginBottom: 20
+    },
+    backText: {
+        fontSize: 16
+    },
+    backButton: {
+        position: 'absolute',
+        top: 17,
+        left: 15,
+        zIndex: 1,
+        padding: 7
+    }
 });
