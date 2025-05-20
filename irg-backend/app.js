@@ -3,6 +3,7 @@ const usuarioRutas = require('./rutas/usuarioRuta');
 const restauranteRutas = require('./rutas/restauranteRuta');
 const pool = require('./BBDD/db'); // Este ya es el pool de MySQL
 const platoRutas = require('./rutas/platoRuta');
+const resenaRuta = require("./rutas/resenaRuta");
 
 
 const app = express();
@@ -12,6 +13,8 @@ app.use(express.json());
 app.use('/usuarios', usuarioRutas);
 app.use('/restaurantes', restauranteRutas);
 app.use('/platos', platoRutas);
+app.use("/resenas", resenaRuta);
+
 
 
 // Verificar conexión al iniciar
