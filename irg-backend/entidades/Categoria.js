@@ -15,7 +15,23 @@ async function obtenerCategorias() {
   return rows;
 }
 
+async function eliminarCategoria(id_categoria) {
+    try {
+        const query = "DELETE FROM categorias WHERE id_categoria = ?";
+        const [resultado] = await pool.execute(query, [id_categoria]);
+
+        if (resultado.affectedRows === 0) {
+            return { success: false, error: "No se encontró una categoría con ese ID." };
+        }
+
+        return { success: true, message: "Categoría eliminada con éxito." };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+}
+
 module.exports = {
   crearCategoria,
   obtenerCategorias,
+  eliminarCategoria
 };

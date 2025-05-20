@@ -55,5 +55,5 @@ async function borrarUsuario(req, res) {
 module.exports = {
   crearUsuario,
   listarUsuarios,
-  borrarUsuario,
+  borrarUsuario
 };
