@@ -3,14 +3,20 @@ const usuarioRutas = require('./rutas/usuarioRuta');
 const restauranteRutas = require('./rutas/restauranteRuta');
 const categoriaRutas = require('./rutas/categoriaRuta');
 const pool = require('./BBDD/db'); // Este ya es el pool de MySQL
+const platoRutas = require('./rutas/platoRuta');
+const resenaRuta = require("./rutas/resenaRuta");
+
 
 const app = express();
 app.use(express.json());
 
 // Rutas
 app.use('/usuarios', usuarioRutas);
-app.use('/restaurante', restauranteRutas);
-app.use('/categoria', categoriaRutas);
+app.use('/restaurantes', restauranteRutas);
+app.use('/platos', platoRutas);
+app.use("/resenas", resenaRuta);
+
+
 
 // Verificar conexión al iniciar
 async function iniciarServidor() {

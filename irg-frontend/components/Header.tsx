@@ -1,16 +1,34 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Image, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { restaurantsData } from '../constants/data';
 
 type HeaderProps = {
     restaurantName: string;
+    codigo: string;
 };
 
-export default function Header({ restaurantName }: HeaderProps) {
+export default function Header({ codigo }: HeaderProps) {
+    const restaurant = restaurantsData[codigo];
+    const [search, setSearch] = useState('');
+
+    const handleSearchChange = (text: string) => {
+        setSearch(text);
+        console.log('Buscando:', text);
+    };
+
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.header}>
-                <Image source={require('../assets/images/logo.png')} style={styles.logo} resizeMode="contain" />
-                <Text style={styles.name}>{restaurantName}</Text>
+        <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+            <View style={styles.headerRow}>
+                {restaurant?.logo && (
+                    <Image source={restaurant.logo} style={styles.logo} resizeMode="contain" />
+                )}
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder="Buscar en la carta..."
+                    value={search}
+                    onChangeText={handleSearchChange}
+                />
             </View>
         </SafeAreaView>
     );
@@ -19,22 +37,33 @@ export default function Header({ restaurantName }: HeaderProps) {
 const styles = StyleSheet.create({
     safeArea: {
         backgroundColor: '#f2ebdd',
+        marginBottom: 16
     },
-    header: {
+    headerRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 16,
+        padding: 12,
         backgroundColor: '#f2ebdd',
     },
     logo: {
-        width: 50,
-        height: 50,
-        marginRight: 12,
+        width: 73,
+        height: 73,
+        borderWidth: 2,
+        borderColor: '#000',
+        borderRadius: 100,
+        backgroundColor: '#fff',
+        marginLeft: 5,
+        marginRight: 22,
     },
-    name: {
-        fontSize: 22,
-        fontFamily: 'Playfair',
-        color: '#6c1f2c',
-        fontWeight: 'bold',
+    searchInput: {
+        flex: 1,
+        backgroundColor: '#fff',
+        borderRadius: 6,
+        borderColor: '#a3a3a3',
+        borderWidth: 1,
+        alignItems: 'center',
+        fontSize: 15,
+        paddingHorizontal: 10,
+        height: 'auto',
     },
 });

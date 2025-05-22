@@ -1,32 +1,33 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScrollView, Text, StyleSheet, View, Button } from 'react-native';
+import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Header from '../../../components/Header';
 import Ranking from '../../../components/Ranking';
 import MenuCard from '../../../components/MenuCard';
 import { restaurantsData } from '../../../constants/data';
+import { ArrowLeft } from 'lucide-react-native';
 
 export default function RestaurantPage() {
     const { id } = useLocalSearchParams();
     const router = useRouter();
 
-    const restaurant = restaurantsData[id as string]
-
-    if (!restaurant) {
-        return (
-            <View style={styles.notFoundContainer}>
-                <Text style={styles.notFoundText}>Restaurante no encontrado</Text>
-                <Button title="Volver a buscar" onPress={() => router.push('../')} />
-            </View>
-        );
-    }
+    const restaurant = restaurantsData[id as string];
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Header restaurantName={restaurant.name} />
-            <Ranking score={restaurant.ranking} />
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <ArrowLeft size={30} color="#000" />
+            </TouchableOpacity>
+
+            <Header restaurantName={restaurant.name} codigo={id as string} />
+            <Ranking topItems={restaurant.topItems} />
+
             <Text style={styles.sectionTitle}>~ Nuestra carta ~</Text>
             {restaurant.menu.map((item, index) => (
-                <MenuCard key={index} title={item} onPress={() => { }} />
+                <MenuCard
+                    key={index}
+                    title={item}
+                    onPress={() => router.push({ pathname: '/cliente/restaurantes/reseniaCliente', params: { id: String(id), plato: item } })}
+                />
             ))}
         </ScrollView>
     );
@@ -48,17 +49,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Playfair',
         textAlign: 'center',
     },
-    notFoundContainer: {
-        flex: 1,
-        backgroundColor: '#f2ebdd',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    notFoundText: {
-        fontSize: 18,
-        marginBottom: 12,
-        color: '#6c1f2c',
-        fontFamily: 'Playfair',
+    backButton: {
+        position: 'absolute',
+        top: 17,
+        left: 15,
+        zIndex: 1,
+        padding: 7,
     },
 });

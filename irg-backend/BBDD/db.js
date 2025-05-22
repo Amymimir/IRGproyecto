@@ -15,7 +15,7 @@ async function testConnection() {
   try {
     const connection = await pool.getConnection();
     console.log("Conexión exitosa a MySQL");
-    connection.release(); // Libera la conexión después de usarla
+    connection.release(); // Libera la conexión despuésn de usarla
   } catch (err) {
     console.error("Error al conectar con MySQL:", err.message);
     console.error("Detalles del error:", err); // Loguear todo el objeto del error
