@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise'); // Usa mysql2 con promesas
 
 const pool = mysql.createPool({
-  host: '127.0.0.1',
+  host: 'localhost',
   port: 3306, 
   user: 'root',              // Cambia si usas otro usuario
   password: '',              // O pon tu contraseña si tienes una
