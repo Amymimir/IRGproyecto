@@ -1,184 +1,217 @@
 export type Plato = {
-    name: string;
-    description: string;
-    image: string;
-    category: string;
-};
+    name: string
+    description: string
+    image: any
+    category: string
+    score?: number
+}
 
 export type Restaurante = {
-    name: string;
-    ranking: number;
-    menu: string[];
-    platos: Plato[];
-    logo: any;
-    topItems: { name: string; score: number }[];
-};
+    name: string
+    ranking: number
+    menu: string[]
+    platos: Plato[]
+    logo: any
+    topItems: { name: string; score: number }[]
+}
 
 const astorPlatos: Plato[] = [
     {
         name: "Bruschettas",
-        description: "Pan tostado con tomate, albahaca y aceite de oliva.",
-        image: "https://cdn.pixabay.com/photo/2017/05/07/08/56/bruschetta-2290795_1280.jpg",
-        category: "Entradas"
+        description: "Pan tostado con tomate, albahaca y aceite de oliva",
+        image: require('../assets/images/bruschettas.png'),
+        category: "Entradas",
+        score: 4.8
     },
     {
         name: "Carpaccio de Ternera",
         description: "Finas láminas de ternera con parmesano y rúcula.",
-        image: "https://cdn.pixabay.com/photo/2017/06/17/18/08/carpaccio-2410510_1280.jpg",
-        category: "Entradas"
+        image: require('../assets/images/carpaccio_ternera.png'),
+        category: "Entradas",
+        score: 4.4
     },
     {
         name: "Croquetas de Jamón",
         description: "Croquetas caseras con jamón ibérico.",
-        image: "https://cdn.pixabay.com/photo/2020/02/23/10/42/croquettes-4873262_1280.jpg",
-        category: "Entradas"
+        image: require('../assets/images/croquetas_jamon.png'),
+        category: "Entradas",
+        score: 4.3
     },
     {
         name: "Ravioles de Ricota",
         description: "Pasta casera rellena con ricota y espinaca, salsa fileto.",
-        image: "https://cdn.pixabay.com/photo/2016/11/18/15/27/ravioli-1835473_1280.jpg",
-        category: "Principales"
+        image: require('../assets/images/ravioles_ricota.png'),
+        category: "Principales",
+        score: 4.7
     },
     {
         name: "Solomillo al Malbec",
         description: "Solomillo de ternera con salsa de vino tinto.",
-        image: "https://cdn.pixabay.com/photo/2020/02/27/08/14/steak-4882696_1280.jpg",
-        category: "Principales"
+        image: require('../assets/images/solomillo_malbec.png'),
+        category: "Principales",
+        score: 4.6
     },
     {
         name: "Risotto de Setas",
         description: "Arroz cremoso con mezcla de setas y parmesano.",
-        image: "https://cdn.pixabay.com/photo/2017/06/02/18/24/risotto-2360814_1280.jpg",
-        category: "Principales"
+        image: require('../assets/images/risotto_setas.png'),
+        category: "Principales",
+        score: 4.5
     },
     {
         name: "Tiramisú",
         description: "Postre italiano con café, mascarpone y cacao.",
-        image: "https://cdn.pixabay.com/photo/2015/12/08/00/32/tiramisu-1081464_1280.jpg",
-        category: "Postres"
+        image: require('../assets/images/tiramisu.png'),
+        category: "Postres",
+        score: 4.2
     },
     {
         name: "Panqueque de Dulce de Leche",
         description: "Clásico panqueque relleno de dulce de leche.",
-        image: "https://cdn.pixabay.com/photo/2016/03/05/20/02/crepes-1238736_1280.jpg",
-        category: "Postres"
+        image: require('../assets/images/panqueque_dulce.png'),
+        category: "Postres",
+        score: 4.1
     },
     {
         name: "Flan Casero",
         description: "Con crema y caramelo líquido.",
-        image: "https://cdn.pixabay.com/photo/2017/10/10/21/46/flan-2839229_1280.jpg",
-        category: "Postres"
+        image: require('../assets/images/flan_casero.png'),
+        category: "Postres",
+        score: 4.3
     },
     {
         name: "Vino Malbec",
         description: "Botella de vino tinto argentino, ideal para carnes.",
-        image: "https://cdn.pixabay.com/photo/2015/07/02/20/28/wine-828405_1280.jpg",
-        category: "Bebidas"
+        image: require('../assets/images/vino_malbec.png'),
+        category: "Bebidas",
+        score: 4.0
     },
     {
         name: "Agua Mineral",
         description: "Botella de agua natural sin gas.",
-        image: "https://cdn.pixabay.com/photo/2016/02/23/17/59/water-1215051_1280.jpg",
-        category: "Bebidas"
+        image: require('../assets/images/agua_mineral.png'),
+        category: "Bebidas",
+        score: 3.8
     },
     {
         name: "Spritz",
         description: "Cóctel italiano con Aperol, prosecco y soda.",
-        image: "https://cdn.pixabay.com/photo/2022/01/05/10/24/spritz-6917139_1280.jpg",
-        category: "Bebidas"
-    },
-];
+        image: require('../assets/images/spritz.png'),
+        category: "Bebidas",
+        score: 4.2
+    }
+]
 
 const tacosPlatos: Plato[] = [
     {
         name: "Tacos al Pastor",
         description: "Tacos de cerdo marinado con piña y cebolla.",
-        image: "https://cdn.pixabay.com/photo/2022/03/12/17/32/tacos-7063254_1280.jpg",
-        category: "Tacos"
+        image: require('../assets/images/tacos_al_pastor.png'),
+        category: "Tacos",
+        score: 4.9
     },
     {
         name: "Tacos de Pollo",
         description: "Tortilla con pollo grillado, pico de gallo y queso.",
-        image: "https://cdn.pixabay.com/photo/2022/05/07/14/52/taco-7179305_1280.jpg",
-        category: "Tacos"
+        image: require('../assets/images/tacos_pollo.png'),
+        category: "Tacos",
+        score: 4.4
     },
     {
         name: "Tacos Veganos",
         description: "Tortilla con guiso de lentejas, palta y lechuga.",
-        image: "https://cdn.pixabay.com/photo/2020/07/17/10/05/tacos-5413300_1280.jpg",
-        category: "Tacos"
+        image: require('../assets/images/tacos_veganos.png'),
+        category: "Tacos",
+        score: 4.3
     },
     {
         name: "Nachos Especiales",
         description: "Totopos con queso, jalapeños, guacamole y carne.",
-        image: "https://cdn.pixabay.com/photo/2016/11/29/03/35/nachos-1867395_1280.jpg",
-        category: "Nachos"
+        image: require('../assets/images/nachos_especiales.png'),
+        category: "Nachos",
+        score: 4.7
     },
     {
         name: "Nachos Clásicos",
         description: "Totopos con queso cheddar derretido.",
-        image: "https://cdn.pixabay.com/photo/2020/09/16/04/52/nachos-5573974_1280.jpg",
-        category: "Nachos"
+        image: require('../assets/images/nachos_clasicos.png'),
+        category: "Nachos",
+        score: 4.1
     },
     {
         name: "Nachos con Chili",
         description: "Totopos con frijoles picantes y crema agria.",
-        image: "https://cdn.pixabay.com/photo/2016/11/20/09/06/nachos-1837477_1280.jpg",
-        category: "Nachos"
+        image: require('../assets/images/nachos_con_chili.png'),
+        category: "Nachos",
+        score: 4.0
     },
     {
         name: "Salsa Picante",
         description: "Salsa roja casera con chiles mexicanos.",
-        image: "https://cdn.pixabay.com/photo/2018/04/01/20/44/salsa-3284162_1280.jpg",
-        category: "Salsas"
+        image: require('../assets/images/salsa_picante.png'),
+        category: "Salsas",
+        score: 4.2
     },
     {
         name: "Guacamole",
         description: "Salsa de aguacate con lima, tomate y cebolla.",
-        image: "https://cdn.pixabay.com/photo/2016/11/18/15/17/guacamole-1834641_1280.jpg",
-        category: "Salsas"
+        image: require('../assets/images/guacamole.png'),
+        category: "Salsas",
+        score: 4.5
     },
     {
         name: "Salsa Verde",
         description: "Salsa mexicana con tomatillo y cilantro.",
-        image: "https://cdn.pixabay.com/photo/2015/05/03/12/45/avocado-751908_1280.jpg",
-        category: "Salsas"
+        image: require('../assets/images/salsa_verde.png'),
+        category: "Salsas",
+        score: 4.1
     },
     {
         name: "Margarita",
         description: "Cóctel mexicano con tequila, limón y sal.",
-        image: "https://cdn.pixabay.com/photo/2015/07/30/12/58/margarita-867944_1280.jpg",
-        category: "Bebidas"
+        image: require('../assets/images/margarita.png'),
+        category: "Bebidas",
+        score: 4.4
     },
     {
         name: "Agua de Horchata",
         description: "Bebida de arroz, canela y leche.",
-        image: "https://cdn.pixabay.com/photo/2020/03/27/06/35/horchata-4970974_1280.jpg",
-        category: "Bebidas"
+        image: require('../assets/images/agua_horchata.png'),
+        category: "Bebidas",
+        score: 4.0
     },
     {
         name: "Cerveza Mexicana",
         description: "Botella de cerveza estilo lager.",
-        image: "https://cdn.pixabay.com/photo/2016/03/05/20/07/beer-1238756_1280.jpg",
-        category: "Bebidas"
+        image: require('../assets/images/cerveza_mexicana.png'),
+        category: "Bebidas",
+        score: 4.2
     }
-];
+]
 
 export const restaurantsData: Record<string, Restaurante> = {
-    "astor": {
+    astor: {
         name: "Astor",
         ranking: 4.8,
         menu: ["Entradas", "Principales", "Postres", "Bebidas"],
         logo: require('../assets/images/astor_logo.png'),
-        topItems: [],
+        topItems: astorPlatos
+            .filter(p => p.score !== undefined)
+            .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+            .slice(0, 5)
+            .map(p => ({ name: p.name, score: p.score ?? 0 })),
         platos: astorPlatos
     },
-    "astor2024": {
+    astor2024: {
         name: "Astor",
         ranking: 4.8,
         menu: ["Entradas", "Principales", "Postres", "Bebidas"],
         logo: require('../assets/images/astor_logo.png'),
-        topItems: [],
+        topItems: astorPlatos
+            .filter(p => p.score !== undefined)
+            .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+            .slice(0, 5)
+            .map(p => ({ name: p.name, score: p.score ?? 0 })),
         platos: astorPlatos
     },
     "el-rey-de-los-tacos": {
@@ -186,20 +219,28 @@ export const restaurantsData: Record<string, Restaurante> = {
         ranking: 4.5,
         menu: ["Tacos", "Nachos", "Salsas", "Bebidas"],
         logo: require('../assets/images/rey_de_los_tacos_logo.png'),
-        topItems: [],
+        topItems: tacosPlatos
+            .filter(p => p.score !== undefined)
+            .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+            .slice(0, 5)
+            .map(p => ({ name: p.name, score: p.score ?? 0 })),
         platos: tacosPlatos
     },
-    "tacos2023": {
+    tacos2023: {
         name: "El Rey de los Tacos",
         ranking: 4.5,
         menu: ["Tacos", "Nachos", "Salsas", "Bebidas"],
         logo: require('../assets/images/rey_de_los_tacos_logo.png'),
-        topItems: [],
+        topItems: tacosPlatos
+            .filter(p => p.score !== undefined)
+            .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+            .slice(0, 5)
+            .map(p => ({ name: p.name, score: p.score ?? 0 })),
         platos: tacosPlatos
     }
-};
+}
 
 export const restaurantAliases: Record<string, string> = {
     astor2024: "astor",
     tacos2023: "el-rey-de-los-tacos"
-};
+}

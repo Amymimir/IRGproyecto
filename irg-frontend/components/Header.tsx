@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { restaurantsData } from '../constants/data';
+import React, { useState } from 'react'
+import { View, StyleSheet, Image, TextInput } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { restaurantsData } from '../constants/data'
 
 type HeaderProps = {
-    restaurantName: string;
-    codigo: string;
-};
+    restaurantName: string
+    codigo: string
+}
 
 export default function Header({ codigo }: HeaderProps) {
-    const restaurant = restaurantsData[codigo];
-    const [search, setSearch] = useState('');
+    const restaurant = restaurantsData[codigo]
+    const [search, setSearch] = useState('')
 
     const handleSearchChange = (text: string) => {
-        setSearch(text);
-        console.log('Buscando:', text);
-    };
+        setSearch(text)
+    }
 
     return (
         <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
@@ -31,29 +30,30 @@ export default function Header({ codigo }: HeaderProps) {
                 />
             </View>
         </SafeAreaView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     safeArea: {
         backgroundColor: '#f2ebdd',
-        marginBottom: 16
+        marginBottom: 8,
     },
     headerRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 12,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
         backgroundColor: '#f2ebdd',
     },
     logo: {
-        width: 73,
-        height: 73,
+        width: 65,
+        height: 65,
         borderWidth: 2,
         borderColor: '#000',
         borderRadius: 100,
         backgroundColor: '#fff',
         marginLeft: 5,
-        marginRight: 22,
+        marginRight: 14,
     },
     searchInput: {
         flex: 1,
@@ -61,9 +61,10 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         borderColor: '#a3a3a3',
         borderWidth: 1,
+        fontSize: 14,
         alignItems: 'center',
-        fontSize: 15,
+        justifyContent: 'center',
         paddingHorizontal: 10,
-        height: 'auto',
+        height: 44,
     },
-});
+})

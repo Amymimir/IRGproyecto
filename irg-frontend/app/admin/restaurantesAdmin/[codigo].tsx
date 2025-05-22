@@ -1,40 +1,39 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScrollView, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Header from '../../../components/Header';
-import Ranking from '../../../components/Ranking';
-import MenuCard from '../../../components/MenuCard';
-import Categorias from '../../../components/Categorias';
-import { restaurantAliases } from '../../../constants/data';
-import { useRestaurantes } from '../../../contexts/RestoContext';
-import { ArrowLeft } from 'lucide-react-native';
-import { useState, useRef } from 'react';
-import type { ScrollView as ScrollViewType } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { ScrollView, Text, StyleSheet, TouchableOpacity, View } from 'react-native'
+import Header from '../../../components/Header'
+import Ranking from '../../../components/Ranking'
+import MenuCard from '../../../components/MenuCard'
+import Categorias from '../../../components/Categorias'
+import { restaurantAliases } from '../../../constants/data'
+import { useRestaurantes } from '../../../contexts/RestoContext'
+import { ArrowLeft } from 'lucide-react-native'
+import { useState, useRef } from 'react'
+import type { ScrollView as ScrollViewType } from 'react-native'
 
 export default function RestauranteAdminPage() {
-    const { codigo } = useLocalSearchParams();
-    const router = useRouter();
-    const alias = restaurantAliases[codigo as string];
-    const { restaurantes } = useRestaurantes();
+    const { codigo } = useLocalSearchParams()
+    const router = useRouter()
+    const alias = restaurantAliases[codigo as string]
+    const { restaurantes } = useRestaurantes()
 
-    const restaurant = restaurantes[alias];
-    const categorias = restaurant.menu;
+    const restaurant = restaurantes[alias]
+    const categorias = restaurant.menu
 
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0]);
-
-    const scrollRef = useRef<ScrollViewType>(null);
-    const seccionesRef = useRef<Record<string, number>>({});
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0])
+    const scrollRef = useRef<ScrollViewType>(null)
+    const seccionesRef = useRef<Record<string, number>>({})
 
     const handleCategoriaPress = (cat: string) => {
-        setCategoriaSeleccionada(cat);
-        const y = seccionesRef.current[cat];
+        setCategoriaSeleccionada(cat)
+        const y = seccionesRef.current[cat]
         if (scrollRef.current && y !== undefined) {
-            scrollRef.current.scrollTo({ y, animated: true });
+            scrollRef.current.scrollTo({ y, animated: true })
         }
-    };
+    }
 
     const guardarPosicion = (categoria: string, y: number) => {
-        seccionesRef.current[categoria] = y;
-    };
+        seccionesRef.current[categoria] = y
+    }
 
     return (
         <View style={styles.wrapper}>
@@ -50,7 +49,11 @@ export default function RestauranteAdminPage() {
                 stickyHeaderIndices={[4]}
             >
                 <Header restaurantName={restaurant.name} codigo={codigo as string} />
-                <Ranking topItems={restaurant.topItems} />
+
+                <View style={styles.rankingWrapper}>
+                    <Ranking topItems={restaurant.topItems} />
+                </View>
+
                 <Text style={styles.sectionTitle}>~ Gestión de Carta ~</Text>
 
                 <View style={styles.addButtonWrapper}>
@@ -76,34 +79,44 @@ export default function RestauranteAdminPage() {
                 </View>
 
                 {categorias.map((cat, catIndex) => {
-                    const platos = restaurant.platos.filter(p => p.category === cat);
+                    const platosFiltrados = restaurant.platos.filter(p => p.category === cat)
+
                     return (
                         <View
                             key={catIndex}
                             onLayout={e => guardarPosicion(cat, e.nativeEvent.layout.y)}
                         >
                             <Text style={styles.categoryTitle}>{cat}</Text>
-                            {platos.map((item, index) => (
-                                <MenuCard
-                                    key={`${cat}-${index}`}
-                                    title={item.name}
-                                    description={item.description}
-                                    image={item.image}
-                                    onEdit={() =>
-                                        router.push({
-                                            pathname: '/admin/restaurantesAdmin/editarPlato',
-                                            params: { codigo, index },
-                                        })
-                                    }
-                                />
-                            ))}
+
+                            {platosFiltrados.map((item) => {
+                                const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
+
+                                return (
+                                    <MenuCard
+                                        key={`${cat}-${item.name}`}
+                                        title={item.name}
+                                        description={item.description}
+                                        image={item.image}
+                                        onEdit={() =>
+                                            router.push({
+                                                pathname: '/admin/restaurantesAdmin/editarPlato',
+                                                params: {
+                                                    codigo,
+                                                    index: String(globalIndex),
+                                                },
+                                            })
+                                        }
+                                    />
+                                )
+                            })}
+
                             <View style={styles.separator} />
                         </View>
-                    );
+                    )
                 })}
             </ScrollView>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -112,9 +125,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#f2ebdd',
     },
     container: {
-        padding: 16,
-        paddingTop: 60,
-        paddingBottom: 100,
+        padding: 12,
+        paddingTop: 0,
+        paddingBottom: 90,
+    },
+    headerWrapper: {
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: '#f2ebdd',
+        zIndex: 30,
+    },
+    backButton: {
+        padding: 4,
+        marginBottom: 0,
+        alignSelf: 'flex-start',
+    },
+    rankingWrapper: {
+        backgroundColor: '#f2ebdd',
+        paddingVertical: 6,
     },
     sectionTitle: {
         backgroundColor: '#6c1f2c',
@@ -125,17 +154,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Playfair',
         textAlign: 'center',
-    },
-    headerWrapper: {
-        height: 60,
-        justifyContent: 'center',
-        paddingHorizontal: 12,
-        backgroundColor: '#f2ebdd',
-        zIndex: 30,
-    },
-    backButton: {
-        padding: 8,
-        alignSelf: 'flex-start',
     },
     addButtonWrapper: {
         marginBottom: 10,
@@ -170,4 +188,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#6c1f2c',
         marginVertical: 16,
     },
-});
+})
