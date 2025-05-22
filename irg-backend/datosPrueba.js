@@ -26,9 +26,9 @@ async function insertarDatosPrueba() {
     }
 
     // Restaurantes
-    const restaurantes = ['La Trattoria', 'El Asador', 'Sushi World'];
+    const restaurante = ['La Trattoria', 'El Asador', 'Sushi World'];
 
-    for (const nombre of restaurantes) {
+    for (const nombre of restaurante) {
       const clave = generarClaveUnica();
       try {
         await connection.query(
