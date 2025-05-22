@@ -1,20 +1,21 @@
 const pool = require('../BBDD/db');
 
-async function crearRestaurante(clave_acceso) {
+async function crearRestaurante(nombre, clave_acceso) {
   const query = `
-    INSERT INTO restaurantes (clave_acceso)
+    INSERT INTO restaurantes (nombre, clave_acceso)
     VALUES (?)
   `;
-  const [resultado] = await pool.execute(query, [clave_acceso]);
+  const [resultado] = await pool.execute(query, [nombre, clave_acceso]);
 
   return {
-    id: resultado.insertId,
+    id: resultado.insertId,  // El id_restaurante se genera automáticamente
+    nombre,
     clave_acceso
   };
 }
 
 async function obtenerRestaurantes() {
-  const [rows] = await pool.query('SELECT * FROM restaurantes');
+  const [rows] = await pool.query('SELECT id_restaurante, nombre, clave_acceso FROM Restaurante');
   return rows;
 }
 

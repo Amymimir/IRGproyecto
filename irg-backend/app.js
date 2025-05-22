@@ -1,6 +1,7 @@
 const express = require('express');
 const usuarioRutas = require('./rutas/usuarioRuta');
 const restauranteRutas = require('./rutas/restauranteRuta');
+const categoriaRutas = require('./rutas/categoriaRuta');
 const pool = require('./BBDD/db'); // Este ya es el pool de MySQL
 const platoRutas = require('./rutas/platoRuta');
 const resenaRuta = require("./rutas/resenaRuta");
@@ -33,6 +34,10 @@ async function iniciarServidor() {
     process.exit(1); // Detiene el servidor si falla la conexión
   }
 }
+
+app.get('/restaurante', (req, res) => {
+  res.send('Aquí están los datos del restaurante');
+});
 
 app.get('/', (req, res) => {
   res.send('Servidor funcionando');
