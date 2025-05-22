@@ -18,7 +18,7 @@ export default function Header({ codigo }: HeaderProps) {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+        <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
             <View style={styles.headerRow}>
                 {restaurant?.logo && (
                     <Image source={restaurant.logo} style={styles.logo} resizeMode="contain" />

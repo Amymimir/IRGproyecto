@@ -38,14 +38,19 @@ export default function RestauranteAdminPage() {
 
     return (
         <View style={styles.wrapper}>
-            <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
-                <ArrowLeft size={30} color="#000" />
-            </TouchableOpacity>
+            <View style={styles.headerWrapper}>
+                <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
+                    <ArrowLeft size={30} color="#000" />
+                </TouchableOpacity>
+            </View>
 
-            <ScrollView ref={scrollRef} contentContainerStyle={styles.container}>
+            <ScrollView
+                ref={scrollRef}
+                contentContainerStyle={styles.container}
+                stickyHeaderIndices={[4]}
+            >
                 <Header restaurantName={restaurant.name} codigo={codigo as string} />
                 <Ranking topItems={restaurant.topItems} />
-
                 <Text style={styles.sectionTitle}>~ Gestión de Carta ~</Text>
 
                 <View style={styles.addButtonWrapper}>
@@ -62,7 +67,7 @@ export default function RestauranteAdminPage() {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.fixedCategorias}>
+                <View style={styles.stickyCategorias}>
                     <Categorias
                         categorias={categorias}
                         activa={categoriaSeleccionada}
@@ -109,6 +114,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 16,
         paddingTop: 60,
+        paddingBottom: 100,
     },
     sectionTitle: {
         backgroundColor: '#6c1f2c',
@@ -120,15 +126,18 @@ const styles = StyleSheet.create({
         fontFamily: 'Playfair',
         textAlign: 'center',
     },
+    headerWrapper: {
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: 12,
+        backgroundColor: '#f2ebdd',
+        zIndex: 30,
+    },
     backButton: {
-        position: 'absolute',
-        top: 17,
-        left: 15,
-        zIndex: 10,
-        padding: 7,
+        padding: 8,
+        alignSelf: 'flex-start',
     },
     addButtonWrapper: {
-        marginTop: 8,
         marginBottom: 10,
         alignItems: 'center',
     },
@@ -143,8 +152,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Playfair',
         fontSize: 16,
     },
-    fixedCategorias: {
-        marginBottom: 20,
+    stickyCategorias: {
+        backgroundColor: '#f2ebdd',
+        paddingTop: 12,
+        paddingBottom: 0,
+        zIndex: 10,
     },
     categoryTitle: {
         fontSize: 18,
