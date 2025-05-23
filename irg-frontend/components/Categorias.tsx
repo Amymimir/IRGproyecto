@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
         borderColor: '#6c1f2c',
         borderWidth: 1,
         borderRadius: 20,
-        paddingVertical: 6,
-        paddingHorizontal: 14,
+        paddingVertical: 7.5,
+        paddingHorizontal: 12,
         marginHorizontal: 6,
     },
     activa: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         left: 0,
         top: 0,
         bottom: 0,
-        width: 25,
+        width: 5,
         zIndex: 1,
     },
     rightFade: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         bottom: 0,
-        width: 25,
+        width: 5,
         zIndex: 1,
     },
 });

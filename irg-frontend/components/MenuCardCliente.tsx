@@ -1,26 +1,42 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { Settings } from 'lucide-react-native'
-import React from 'react'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 
-type MenuCardProps = {
+export type MenuCardClienteProps = {
     title: string
     description: string
     image: any
-    onEdit: () => void
+    index: number
+    score?: number
+    category: string
+    onVote?: (rating: number) => void
 }
 
-export default function MenuCard({ title, description, image, onEdit }: MenuCardProps) {
+export default function MenuCardCliente({ title, description, image, index, score, category, onVote }: MenuCardClienteProps) {
+    const router = useRouter()
+    const { id } = useLocalSearchParams()
+
+    const handlePress = () => {
+        if (!id) return
+        router.push({
+            pathname: '/cliente/restaurantes/reseniaCliente',
+            params: {
+                id: String(id),
+                plato: category 
+            }
+        })
+    }
+
     return (
-        <View style={styles.card}>
+        <TouchableOpacity onPress={handlePress} style={styles.card}>
             <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.image} />
             <View style={styles.content}>
                 <Text style={styles.title}>{title}</Text>
+                {score !== undefined && (
+                    <Text style={styles.score}>⭐ {score.toFixed(1)}</Text>
+                )}
                 <Text style={styles.description}>{description}</Text>
             </View>
-            <TouchableOpacity onPress={onEdit} style={styles.iconButton}>
-                <Settings size={20} color="#fff" />
-            </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -39,9 +55,7 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 8,
-        marginLeft: 7,
         marginRight: 10,
-        marginVertical: 5,
     },
     content: {
         flex: 1,
@@ -52,14 +66,14 @@ const styles = StyleSheet.create({
         color: '#6c1f2c',
         fontFamily: 'Playfair',
     },
+    score: {
+        fontSize: 14,
+        color: '#333',
+        marginTop: 2,
+    },
     description: {
         fontSize: 14,
         color: '#333',
         marginTop: 4,
-    },
-    iconButton: {
-        backgroundColor: '#6c1f2c',
-        padding: 8,
-        borderRadius: 20,
     },
 })
