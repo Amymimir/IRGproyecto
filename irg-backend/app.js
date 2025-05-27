@@ -15,7 +15,7 @@ app.use('/usuarios', usuarioRutas);
 app.use('/restaurantes', restauranteRutas);
 app.use('/platos', platoRutas);
 app.use("/resenas", resenaRuta);
-
+app.use("/categoria", categoriaRutas);
 
 
 // Verificar conexión al iniciar

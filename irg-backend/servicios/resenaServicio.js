@@ -1,6 +1,7 @@
 const { crearResenia: crearEnDB, obtenerResenias: obtenerDeDB } = require('../entidades/Resena');
+const pool = require('../BBDD/db'); 
 
-// ✅ Registrar una nueva reseña
+// Registrar una nueva reseña
 async function crearResenia(data) {
     if (
         !data.id_usuario || !data.id_plato ||
@@ -18,7 +19,7 @@ async function crearResenia(data) {
     }
 }
 
-// ✅ Obtener todas las reseñas
+// Obtener todas las reseñas
 async function obtenerResenias() {
     try {
         return await obtenerDeDB();
@@ -27,7 +28,18 @@ async function obtenerResenias() {
     }
 }
 
+async function obtenerMejoresResenas() {
+    try {
+        const query = "SELECT * FROM Resena ORDER BY promedio_estrellas DESC LIMIT 5";
+        const [rows] = await pool.query(query);
+        return rows;
+    } catch (error) {
+        throw new Error("Error al obtener el ranking de reseñas: " + error.message);
+    }
+}
+
 module.exports = {
     crearResenia,
-    obtenerResenias
+    obtenerResenias,
+    obtenerMejoresResenas
 };
