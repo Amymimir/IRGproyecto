@@ -12,7 +12,7 @@ export default function EleccionRubroAdmin() {
         router.push(`/admin/restaurantesAdmin/${codigo}`);
     };
 
-    const navigateToResenias = () => {
+    const navigateToResenas = () => {
         router.push(`/admin/restaurantesAdmin/resenias/${codigo}`);
     };
 
@@ -27,7 +27,7 @@ export default function EleccionRubroAdmin() {
                 <TouchableOpacity style={styles.button} onPress={navigateToGestion}>
                     <Text style={styles.buttonText}>Gestionar Carta</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={navigateToResenias}>
+                <TouchableOpacity style={styles.button} onPress={navigateToResenas}>
                     <Text style={styles.buttonText}>Ver Reseñas</Text>
                 </TouchableOpacity>
             </View>
