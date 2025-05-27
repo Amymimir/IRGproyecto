@@ -13,7 +13,7 @@ const mockReviews: Record<string, { title: string; description: string; date: st
     ]
 };
 
-export default function VerReseniasPage() {
+export default function VerResenasPage() {
     const { codigo } = useLocalSearchParams();
     const router = useRouter();
 

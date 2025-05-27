@@ -1,12 +1,11 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { ScrollView, Text, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import Header from '../../../components/Header'
 import Ranking from '../../../components/Ranking'
 import MenuCard from '../../../components/MenuCard'
 import Categorias from '../../../components/Categorias'
 import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { ArrowLeft } from 'lucide-react-native'
 import { useState, useRef } from 'react'
 import type { ScrollView as ScrollViewType } from 'react-native'
 
@@ -27,7 +26,7 @@ export default function RestauranteAdminPage() {
         setCategoriaSeleccionada(cat)
         const y = seccionesRef.current[cat]
         if (scrollRef.current && y !== undefined) {
-            scrollRef.current.scrollTo({ y, animated: true })
+            scrollRef.current.scrollTo({ y: y - 80, animated: true })
         }
     }
 
@@ -37,18 +36,12 @@ export default function RestauranteAdminPage() {
 
     return (
         <View style={styles.wrapper}>
-            <View style={styles.headerWrapper}>
-                <TouchableOpacity onPress={() => router.replace('../')} style={styles.backButton}>
-                    <ArrowLeft size={30} color="#000" />
-                </TouchableOpacity>
-            </View>
-
             <ScrollView
                 ref={scrollRef}
                 contentContainerStyle={styles.container}
-                stickyHeaderIndices={[4]}
+                stickyHeaderIndices={[0, 4]}
             >
-                <Header restaurantName={restaurant.name} codigo={codigo as string} />
+                <Header />
 
                 <View style={styles.rankingWrapper}>
                     <Ranking topItems={restaurant.topItems} />
@@ -128,18 +121,6 @@ const styles = StyleSheet.create({
         padding: 12,
         paddingTop: 0,
         paddingBottom: 90,
-    },
-    headerWrapper: {
-        height: 60,
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        backgroundColor: '#f2ebdd',
-        zIndex: 30,
-    },
-    backButton: {
-        padding: 4,
-        marginBottom: 0,
-        alignSelf: 'flex-start',
     },
     rankingWrapper: {
         backgroundColor: '#f2ebdd',

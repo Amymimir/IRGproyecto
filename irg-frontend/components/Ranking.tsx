@@ -21,11 +21,12 @@ export default function Ranking({ topItems }: RankingProps) {
                             <Text style={styles.rankLabel}>{item.name}</Text>
                             <View style={styles.barWrapper}>
                                 <View style={styles.barBackground}>
-                                    <View style={[styles.barFill, { width: `${(item.score / 5) * 100}%` }]} />
+                                    <View style={[styles.barFill, { width: `${(item.score / 5) * 100}%` }]}>
+                                        <Text style={styles.scoreInside}>{item.score.toFixed(1)}</Text>
+                                    </View>
                                 </View>
-                                <Text style={styles.scoreText}>{item.score.toFixed(1)}</Text>
-                                <View style={styles.starsPlaceholder}>
-                                    <Text>⭐️</Text>
+                                <View style={styles.starsContainer}>
+                                    <Text style={styles.star}>⭐️</Text>
                                 </View>
                             </View>
                         </View>
@@ -49,66 +50,65 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Playfair',
         textAlign: 'center',
-        marginBottom: 3
+        marginBottom: 18,
     },
     barChart: {
-        marginVertical: 10,
-        paddingHorizontal: 8,
+        paddingHorizontal: 12,
     },
     barRow: {
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        marginVertical: 10,
+        alignItems: 'center',
+        marginBottom: 16,
     },
     rankPosition: {
-        width: 30,
-        fontSize: 20,
+        width: 28,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 2,
-        marginRight: 5,
-        textAlign: 'center',
         color: '#6c1f2c',
+        textAlign: 'center',
         textShadowColor: '#000',
+        marginRight: 7,
         textShadowOffset: { width: 0.5, height: 0.8 },
         textShadowRadius: 1,
     },
     barColumn: {
         flex: 1,
-        marginBottom: 2
     },
     rankLabel: {
         fontSize: 15,
-        marginBottom: 4,
         fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#000',
     },
     barWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
     },
     barBackground: {
-        height: 10.4,
         flex: 1,
+        height: 26,
         backgroundColor: '#ddd',
-        borderRadius: 4,
-        borderWidth: 1,
+        borderRadius: 8,
         borderColor: '#6c1f2c',
+        borderWidth: 1.2,
         overflow: 'hidden',
-        marginRight: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
+        justifyContent: 'center',
     },
     barFill: {
         height: '100%',
         backgroundColor: '#729c8c',
+        justifyContent: 'center',
+        paddingLeft: 10,
     },
-    scoreText: {
-        width: 35,
-        textAlign: 'center',
+    scoreInside: {
+        color: '#fff',
         fontWeight: 'bold',
+        fontSize: 14,
     },
-    starsPlaceholder: {
-        marginLeft: 5,
+    starsContainer: {
+        marginLeft: 10,
+    },
+    star: {
+        fontSize: 16,
     },
 });

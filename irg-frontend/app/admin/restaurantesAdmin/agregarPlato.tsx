@@ -12,7 +12,7 @@ import {
 import { useState } from 'react'
 import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { Plus } from 'lucide-react-native'
+import { Plus, ArrowLeft } from 'lucide-react-native'
 
 export default function AgregarPlato() {
     const { codigo } = useLocalSearchParams()
@@ -68,82 +68,92 @@ export default function AgregarPlato() {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Agregar Plato</Text>
-
-            <Text style={styles.label}>Nombre del Plato</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={(text) => {
-                    if (text.length <= 50) setName(text)
-                }}
-                maxLength={50}
-                placeholder="Máx. 50 caracteres"
-            />
-
-            <Text style={styles.label}>Descripción</Text>
-            <TextInput
-                style={[styles.input, styles.textArea]}
-                value={description}
-                onChangeText={(text) => {
-                    if (text.length <= 111) setDescription(text)
-                }}
-                maxLength={111}
-                multiline
-                placeholder="Máx. 111 caracteres"
-            />
-
-            <Text style={styles.label}>Categoría</Text>
-            <View style={styles.dropdownWrapper}>
-                {categorias.map((cat) => (
-                    <TouchableOpacity
-                        key={cat}
-                        style={[
-                            styles.categoryButton,
-                            category === cat && styles.categoryButtonSelected
-                        ]}
-                        onPress={() => setCategory(cat)}
-                    >
-                        <Text
-                            style={[
-                                styles.categoryText,
-                                category === cat && styles.categoryTextSelected
-                            ]}
-                        >
-                            {cat}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
+        <View style={styles.wrapper}>
+            <View style={styles.headerWrapper}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                    <ArrowLeft size={30} color="#000" />
+                </TouchableOpacity>
             </View>
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.title}>Agregar Plato</Text>
 
-            <Text style={styles.label}>Imagen (URL)</Text>
-            <TextInput
-                style={styles.input}
-                value={image}
-                onChangeText={setImage}
-                placeholder="Ej: https://..."
-            />
-
-            {image ? (
-                <Image
-                    source={typeof image === 'string' ? { uri: image } : image}
-                    style={styles.preview}
+                <Text style={styles.label}>Nombre del Plato</Text>
+                <TextInput
+                    style={styles.input}
+                    value={name}
+                    onChangeText={(text) => {
+                        if (text.length <= 50) setName(text)
+                    }}
+                    maxLength={50}
+                    placeholder="Máx. 50 caracteres"
                 />
-            ) : null}
 
-            <TouchableOpacity style={styles.button} onPress={handleAdd}>
-                <Plus size={18} color="#fff" style={{ marginRight: 8 }} />
-                <Text style={styles.buttonText}>Agregar Plato</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <Text style={styles.label}>Descripción</Text>
+                <TextInput
+                    style={[styles.input, styles.textArea]}
+                    value={description}
+                    onChangeText={(text) => {
+                        if (text.length <= 111) setDescription(text)
+                    }}
+                    maxLength={111}
+                    multiline
+                    placeholder="Máx. 111 caracteres"
+                />
+
+                <Text style={styles.label}>Categoría</Text>
+                <View style={styles.dropdownWrapper}>
+                    {categorias.map((cat) => (
+                        <TouchableOpacity
+                            key={cat}
+                            style={[
+                                styles.categoryButton,
+                                category === cat && styles.categoryButtonSelected
+                            ]}
+                            onPress={() => setCategory(cat)}
+                        >
+                            <Text
+                                style={[
+                                    styles.categoryText,
+                                    category === cat && styles.categoryTextSelected
+                                ]}
+                            >
+                                {cat}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+
+                <Text style={styles.label}>Imagen (URL)</Text>
+                <TextInput
+                    style={styles.input}
+                    value={image}
+                    onChangeText={setImage}
+                    placeholder="Ej: https://..."
+                />
+
+                {image ? (
+                    <Image
+                        source={typeof image === 'string' ? { uri: image } : image}
+                        style={styles.preview}
+                    />
+                ) : null}
+
+                <TouchableOpacity style={styles.button} onPress={handleAdd}>
+                    <Plus size={18} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.buttonText}>Agregar Plato</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        backgroundColor: '#f2ebdd'
+    },
     container: {
         flexGrow: 1,
-        backgroundColor: '#f2ebdd',
         alignItems: 'center',
         padding: 24
     },
@@ -222,5 +232,17 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 16.5
+    },
+    headerWrapper: {
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: '#f2ebdd',
+        zIndex: 30
+    },
+    backButton: {
+        padding: 4,
+        marginBottom: 0,
+        alignSelf: 'flex-start'
     }
 })
