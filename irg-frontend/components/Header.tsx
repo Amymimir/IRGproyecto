@@ -32,7 +32,7 @@ export default function Header() {
 const styles = StyleSheet.create({
     safeArea: {
         backgroundColor: '#f2ebdd',
-        marginVertical: 18,
+        paddingVertical: 14,
     },
     headerRow: {
         flexDirection: 'row',

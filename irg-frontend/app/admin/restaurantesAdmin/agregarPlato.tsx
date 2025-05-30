@@ -1,18 +1,19 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
+import { ArrowLeft, Plus } from 'lucide-react-native'
+import { useState } from 'react'
 import {
-    View,
-    TextInput,
+    Alert,
+    ScrollView,
     StyleSheet,
     Text,
-    Image,
-    ScrollView,
-    Alert,
-    TouchableOpacity
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native'
-import { useState } from 'react'
 import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { Plus, ArrowLeft } from 'lucide-react-native'
+
+const opcionesSub = ['Frio', 'Caliente']
 
 export default function AgregarPlato() {
     const { codigo } = useLocalSearchParams()
@@ -25,18 +26,11 @@ export default function AgregarPlato() {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [image, setImage] = useState('')
     const [category, setCategory] = useState('')
-
-    const isValidImage = (img: any) => {
-        return (
-            typeof img === 'number' ||
-            (typeof img === 'string' && img.trim().length > 0 && img.startsWith('http'))
-        )
-    }
+    const [subCategory, setSubCategory] = useState('')
 
     const handleAdd = () => {
-        if (!name.trim() || !description.trim() || !category.trim() || !image.trim()) {
+        if (!name.trim() || !description.trim() || !category.trim() || !subCategory.trim()) {
             Alert.alert('Faltan datos', 'Completá todos los campos obligatorios.')
             return
         }
@@ -56,12 +50,14 @@ export default function AgregarPlato() {
             return
         }
 
-        if (!isValidImage(image)) {
-            Alert.alert('Imagen inválida', 'Debes ingresar una URL válida de imagen.')
-            return
-        }
+        agregarPlato(alias, {
+            name,
+            description,
+            image: require('../../../assets/images/logo.png'),
+            category,
+            subCategory
+        })
 
-        agregarPlato(alias, { name, description, image, category })
         Alert.alert('Plato agregado', 'El plato fue agregado exitosamente.', [
             { text: 'OK', onPress: () => router.back() }
         ])
@@ -100,7 +96,7 @@ export default function AgregarPlato() {
                     placeholder="Máx. 111 caracteres"
                 />
 
-                <Text style={styles.label}>Categoría</Text>
+                <Text style={styles.label}>Categoría Principal</Text>
                 <View style={styles.dropdownWrapper}>
                     {categorias.map((cat) => (
                         <TouchableOpacity
@@ -123,20 +119,28 @@ export default function AgregarPlato() {
                     ))}
                 </View>
 
-                <Text style={styles.label}>Imagen (URL)</Text>
-                <TextInput
-                    style={styles.input}
-                    value={image}
-                    onChangeText={setImage}
-                    placeholder="Ej: https://..."
-                />
-
-                {image ? (
-                    <Image
-                        source={typeof image === 'string' ? { uri: image } : image}
-                        style={styles.preview}
-                    />
-                ) : null}
+                <Text style={styles.label}>Categoría Secundaria</Text>
+                <View style={styles.dropdownWrapper}>
+                    {opcionesSub.map((sub) => (
+                        <TouchableOpacity
+                            key={sub}
+                            style={[
+                                styles.categoryButton,
+                                subCategory === sub && styles.categoryButtonSelected
+                            ]}
+                            onPress={() => setSubCategory(sub)}
+                        >
+                            <Text
+                                style={[
+                                    styles.categoryText,
+                                    subCategory === sub && styles.categoryTextSelected
+                                ]}
+                            >
+                                {sub}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
                 <TouchableOpacity style={styles.button} onPress={handleAdd}>
                     <Plus size={18} color="#fff" style={{ marginRight: 8 }} />
@@ -209,13 +213,6 @@ const styles = StyleSheet.create({
     },
     categoryTextSelected: {
         color: '#fff'
-    },
-    preview: {
-        height: 120,
-        width: '100%',
-        borderRadius: 10,
-        marginTop: 12,
-        marginBottom: 20
     },
     button: {
         flexDirection: 'row',

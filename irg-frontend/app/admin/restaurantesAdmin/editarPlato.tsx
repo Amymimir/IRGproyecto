@@ -1,5 +1,3 @@
-// --- editarPlato.tsx ---
-
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import {
     View,
@@ -16,6 +14,8 @@ import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
 import { Check, Trash2, Star, ArrowLeft } from 'lucide-react-native'
 
+const opcionesSub = ['Frio', 'Caliente']
+
 export default function EditarPlato() {
     const { codigo, index } = useLocalSearchParams()
     const router = useRouter()
@@ -29,15 +29,8 @@ export default function EditarPlato() {
 
     const [name, setName] = useState(item.name)
     const [description, setDescription] = useState(item.description)
-    const [image, setImage] = useState(item.image)
     const [category, setCategory] = useState(item.category)
-
-    const isValidImage = (img: any) => {
-        return (
-            typeof img === 'number' ||
-            (typeof img === 'string' && img.trim().length > 0 && img.startsWith('http'))
-        )
-    }
+    const [subCategory, setSubCategory] = useState(item.subCategory || '')
 
     const handleSave = () => {
         if (!name.trim()) {
@@ -48,12 +41,19 @@ export default function EditarPlato() {
             Alert.alert('Error', 'La descripción no puede estar vacía.')
             return
         }
-        if (!isValidImage(image)) {
-            Alert.alert('Error', 'Debes proporcionar una imagen válida.')
+        if (!subCategory.trim()) {
+            Alert.alert('Error', 'Seleccioná una categoría secundaria.')
             return
         }
 
-        actualizarPlato(alias, platoIndex, { name, description, image, category })
+        actualizarPlato(alias, platoIndex, {
+            name,
+            description,
+            image: item.image,
+            category,
+            subCategory
+        })
+
         Alert.alert('Éxito', 'Los cambios fueron guardados correctamente.', [
             { text: 'OK', onPress: () => router.back() }
         ])
@@ -99,10 +99,10 @@ export default function EditarPlato() {
                 />
 
                 <View style={styles.imageWrapper}>
-                    {image && (
+                    {item.image && (
                         <>
                             <Image
-                                source={typeof image === 'string' ? { uri: image } : image}
+                                source={typeof item.image === 'string' ? { uri: item.image } : item.image}
                                 style={styles.preview}
                             />
                             <Text style={styles.scoreText}>
@@ -127,7 +127,7 @@ export default function EditarPlato() {
                     placeholder="Máx. 111 caracteres"
                 />
 
-                <Text style={styles.label}>Categoría</Text>
+                <Text style={styles.label}>Categoría Principal</Text>
                 <View style={styles.dropdownWrapper}>
                     {categorias.map((cat) => (
                         <TouchableOpacity
@@ -150,12 +150,28 @@ export default function EditarPlato() {
                     ))}
                 </View>
 
-                <Text style={styles.label}>Imagen (URL o Local)</Text>
-                <TextInput
-                    style={styles.input}
-                    value={typeof image === 'string' ? image : ''}
-                    onChangeText={setImage}
-                />
+                <Text style={styles.label}>Categoría Secundaria</Text>
+                <View style={styles.dropdownWrapper}>
+                    {opcionesSub.map((sub) => (
+                        <TouchableOpacity
+                            key={sub}
+                            style={[
+                                styles.categoryButton,
+                                subCategory === sub && styles.categoryButtonSelected
+                            ]}
+                            onPress={() => setSubCategory(sub)}
+                        >
+                            <Text
+                                style={[
+                                    styles.categoryText,
+                                    subCategory === sub && styles.categoryTextSelected
+                                ]}
+                            >
+                                {sub}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
                 <TouchableOpacity style={styles.button} onPress={handleSave}>
                     <Check size={18} color="#fff" style={{ marginRight: 8 }} />

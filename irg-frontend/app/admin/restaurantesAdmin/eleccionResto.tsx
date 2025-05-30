@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { restaurantsData } from '../../../constants/data';
+import { restaurantsData, restaurantAliases } from '../../../constants/data';
 
 export default function EleccionRubroAdmin() {
     const router = useRouter();
     const { codigo } = useLocalSearchParams();
 
-    const restaurant = restaurantsData[codigo as string];
+    const alias = restaurantAliases[codigo as string];
+    const restaurant = restaurantsData[alias];
 
     const navigateToGestion = () => {
         router.push(`/admin/restaurantesAdmin/${codigo}`);
@@ -19,7 +20,18 @@ export default function EleccionRubroAdmin() {
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                {restaurant?.logo && <Image source={restaurant.logo} style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1.8, borderColor: '#000', }} />}
+                {restaurant?.logo && (
+                    <Image
+                        source={restaurant.logo}
+                        style={{
+                            width: 100,
+                            height: 100,
+                            borderRadius: 50,
+                            borderWidth: 1.8,
+                            borderColor: '#000',
+                        }}
+                    />
+                )}
             </View>
             <Text style={styles.title}>GESTIONAR</Text>
             <Text style={styles.title}>NEGOCIO</Text>

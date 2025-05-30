@@ -8,6 +8,7 @@ import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
 import { useState, useRef } from 'react'
 import type { ScrollView as ScrollViewType } from 'react-native'
+import type { CategoriaConSub } from '../../../components/Categorias'
 
 export default function RestauranteAdminPage() {
     const { codigo } = useLocalSearchParams()
@@ -16,9 +17,15 @@ export default function RestauranteAdminPage() {
     const { restaurantes } = useRestaurantes()
 
     const restaurant = restaurantes[alias]
-    const categorias = restaurant.menu
 
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0])
+    const categorias: CategoriaConSub[] = Array.from(
+        new Set(restaurant.platos.map(p => `${p.category}-${p.subCategory}`))
+    ).map(entry => {
+        const [principal, secundaria] = entry.split('-')
+        return { principal, secundaria }
+    })
+
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0]?.principal || '')
     const scrollRef = useRef<ScrollViewType>(null)
     const seccionesRef = useRef<Record<string, number>>({})
 
@@ -33,6 +40,8 @@ export default function RestauranteAdminPage() {
     const guardarPosicion = (categoria: string, y: number) => {
         seccionesRef.current[categoria] = y
     }
+
+    const categoriasUnicas = [...new Set(restaurant.platos.map(p => p.category))]
 
     return (
         <View style={styles.wrapper}>
@@ -71,12 +80,12 @@ export default function RestauranteAdminPage() {
                     />
                 </View>
 
-                {categorias.map((cat, catIndex) => {
+                {categoriasUnicas.map((cat, catIndex) => {
                     const platosFiltrados = restaurant.platos.filter(p => p.category === cat)
 
                     return (
                         <View
-                            key={catIndex}
+                            key={cat}
                             onLayout={e => guardarPosicion(cat, e.nativeEvent.layout.y)}
                         >
                             <Text style={styles.categoryTitle}>{cat}</Text>
@@ -90,6 +99,8 @@ export default function RestauranteAdminPage() {
                                         title={item.name}
                                         description={item.description}
                                         image={item.image}
+                                        subCategory={item.subCategory}
+                                        category={item.category}
                                         onEdit={() =>
                                             router.push({
                                                 pathname: '/admin/restaurantesAdmin/editarPlato',
