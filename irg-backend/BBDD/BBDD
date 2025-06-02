@@ -11,17 +11,21 @@ CREATE TABLE Restaurante (
     clave_acceso VARCHAR(255) NOT NULL UNIQUE
 ) ENGINE=InnoDB;
 
--- Tabla: Categoría
+-- Tabla: Categoria (actualizada con id_restaurante)
 CREATE TABLE Categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_categoria VARCHAR(100) NOT NULL
+    nombre_categoria VARCHAR(100) NOT NULL,
+    id_restaurante INT NOT NULL,
+    FOREIGN KEY (id_restaurante) REFERENCES Restaurante(id_restaurante)
+        ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- Tabla: Plato
+-- Tabla: Plato (actualizada con campo img)
 CREATE TABLE Plato (
     id_plato INT AUTO_INCREMENT PRIMARY KEY,
     nombre_plato VARCHAR(255) NOT NULL,
-    tipo ENUM('comida', 'bebida') NOT NULL,
+    tipo ENUM('caliente', 'frio') NOT NULL,
+    img VARCHAR(500) DEFAULT NULL,
     id_categoria INT NOT NULL,
     id_restaurante INT NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
@@ -39,9 +43,9 @@ CREATE TABLE Usuario (
     ciudad VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB;
 
--- Tabla: Resena
+-- Tabla: Resena (corregido el campo id_resena)
 CREATE TABLE Resena (
-    id_reseña INT AUTO_INCREMENT PRIMARY KEY,
+    id_resena INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
     id_plato INT NOT NULL,
     p1_satisfaccion TINYINT NOT NULL CHECK (p1_satisfaccion BETWEEN 1 AND 5),
