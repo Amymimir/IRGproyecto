@@ -14,8 +14,7 @@ app.use(express.json());
 app.use('/usuarios', usuarioRutas);
 app.use('/restaurante', restauranteRutas);
 app.use('/platos', platoRutas);
-app.use('/resenas', resenaRuta);
-app.use('/categoria', categoriaRutas);
+app.use("/resenas", resenaRuta);
 
 
 

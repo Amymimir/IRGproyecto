@@ -34,7 +34,7 @@ async function eliminarUsuario(id_usuario) {
             return { success: false, error: "No se encontró un usuario con ese ID." };
         }
 
-        return { success: true, message: "Usuario eliminado correctamente." };
+        return { success: true, message: "Usuario con ID:"+id_usuario+" eliminado correctamente." };
     } catch (error) {
         console.error("Error al eliminar usuario:", error.message);
         return { success: false, error: "No se pudo eliminar el usuario." };

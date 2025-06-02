@@ -1,9 +1,20 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { View, TextInput, StyleSheet, Text, Image, ScrollView, Alert, TouchableOpacity } from 'react-native'
+import {
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Image,
+    ScrollView,
+    Alert,
+    TouchableOpacity
+} from 'react-native'
 import { useState } from 'react'
 import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { Check, Trash2, Star } from 'lucide-react-native'
+import { Check, Trash2, Star, ArrowLeft } from 'lucide-react-native'
+
+const opcionesSub = ['Frio', 'Caliente']
 
 export default function EditarPlato() {
     const { codigo, index } = useLocalSearchParams()
@@ -18,15 +29,8 @@ export default function EditarPlato() {
 
     const [name, setName] = useState(item.name)
     const [description, setDescription] = useState(item.description)
-    const [image, setImage] = useState(item.image)
     const [category, setCategory] = useState(item.category)
-
-    const isValidImage = (img: any) => {
-        return (
-            typeof img === 'number' || // local require()
-            (typeof img === 'string' && img.trim().length > 0 && img.startsWith('http'))
-        )
-    }
+    const [subCategory, setSubCategory] = useState(item.subCategory || '')
 
     const handleSave = () => {
         if (!name.trim()) {
@@ -37,12 +41,19 @@ export default function EditarPlato() {
             Alert.alert('Error', 'La descripción no puede estar vacía.')
             return
         }
-        if (!isValidImage(image)) {
-            Alert.alert('Error', 'Debes proporcionar una imagen válida.')
+        if (!subCategory.trim()) {
+            Alert.alert('Error', 'Seleccioná una categoría secundaria.')
             return
         }
 
-        actualizarPlato(alias, platoIndex, { name, description, image, category })
+        actualizarPlato(alias, platoIndex, {
+            name,
+            description,
+            image: item.image,
+            category,
+            subCategory
+        })
+
         Alert.alert('Éxito', 'Los cambios fueron guardados correctamente.', [
             { text: 'OK', onPress: () => router.back() }
         ])
@@ -67,89 +78,112 @@ export default function EditarPlato() {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Editar Plato</Text>
-
-            <Text style={styles.label}>Nombre del Plato</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={(text) => {
-                    if (text.length <= 50) setName(text)
-                }}
-                maxLength={50}
-                placeholder="Máx. 50 caracteres"
-            />
-
-            <View style={styles.imageWrapper}>
-                {image && (
-                    <>
-                        <Image
-                            source={typeof image === 'string' ? { uri: image } : image}
-                            style={styles.preview}
-                        />
-                        <Text style={styles.scoreText}>
-                            <Star size={16} color="#f1c40f" />{' '}
-                            {typeof item.score === 'number'
-                                ? `${item.score.toFixed(2)} / 5`
-                                : 'Sin puntuación aún'}
-                        </Text>
-                    </>
-                )}
+        <View style={{ flex: 1 }}>
+            <View style={styles.headerWrapper}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                    <ArrowLeft size={30} color="#000" />
+                </TouchableOpacity>
             </View>
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.title}>Editar Plato</Text>
 
-            <Text style={styles.label}>Descripción</Text>
-            <TextInput
-                style={[styles.input, styles.textArea]}
-                value={description}
-                onChangeText={(text) => {
-                    if (text.length <= 111) setDescription(text)
-                }}
-                multiline
-                maxLength={111}
-                placeholder="Máx. 111 caracteres"
-            />
+                <Text style={styles.label}>Nombre del Plato</Text>
+                <TextInput
+                    style={styles.input}
+                    value={name}
+                    onChangeText={(text) => {
+                        if (text.length <= 50) setName(text)
+                    }}
+                    maxLength={50}
+                    placeholder="Máx. 50 caracteres"
+                />
 
-            <Text style={styles.label}>Categoría</Text>
-            <View style={styles.dropdownWrapper}>
-                {categorias.map((cat) => (
-                    <TouchableOpacity
-                        key={cat}
-                        style={[
-                            styles.categoryButton,
-                            category === cat && styles.categoryButtonSelected
-                        ]}
-                        onPress={() => setCategory(cat)}
-                    >
-                        <Text
+                <View style={styles.imageWrapper}>
+                    {item.image && (
+                        <>
+                            <Image
+                                source={typeof item.image === 'string' ? { uri: item.image } : item.image}
+                                style={styles.preview}
+                            />
+                            <Text style={styles.scoreText}>
+                                <Star size={16} color="#f1c40f" />{' '}
+                                {typeof item.score === 'number'
+                                    ? `${item.score.toFixed(2)} / 5`
+                                    : 'Sin puntuación aún'}
+                            </Text>
+                        </>
+                    )}
+                </View>
+
+                <Text style={styles.label}>Descripción</Text>
+                <TextInput
+                    style={[styles.input, styles.textArea]}
+                    value={description}
+                    onChangeText={(text) => {
+                        if (text.length <= 111) setDescription(text)
+                    }}
+                    multiline
+                    maxLength={111}
+                    placeholder="Máx. 111 caracteres"
+                />
+
+                <Text style={styles.label}>Categoría Principal</Text>
+                <View style={styles.dropdownWrapper}>
+                    {categorias.map((cat) => (
+                        <TouchableOpacity
+                            key={cat}
                             style={[
-                                styles.categoryText,
-                                category === cat && styles.categoryTextSelected
+                                styles.categoryButton,
+                                category === cat && styles.categoryButtonSelected
                             ]}
+                            onPress={() => setCategory(cat)}
                         >
-                            {cat}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
+                            <Text
+                                style={[
+                                    styles.categoryText,
+                                    category === cat && styles.categoryTextSelected
+                                ]}
+                            >
+                                {cat}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
-            <Text style={styles.label}>Imagen (URL o Local)</Text>
-            <TextInput
-                style={styles.input}
-                value={typeof image === 'string' ? image : ''}
-                onChangeText={setImage}
-            />
+                <Text style={styles.label}>Categoría Secundaria</Text>
+                <View style={styles.dropdownWrapper}>
+                    {opcionesSub.map((sub) => (
+                        <TouchableOpacity
+                            key={sub}
+                            style={[
+                                styles.categoryButton,
+                                subCategory === sub && styles.categoryButtonSelected
+                            ]}
+                            onPress={() => setSubCategory(sub)}
+                        >
+                            <Text
+                                style={[
+                                    styles.categoryText,
+                                    subCategory === sub && styles.categoryTextSelected
+                                ]}
+                            >
+                                {sub}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleSave}>
-                <Check size={18} color="#fff" style={{ marginRight: 8 }} />
-                <Text style={styles.buttonText}>Guardar Cambios</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleSave}>
+                    <Check size={18} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.buttonText}>Guardar Cambios</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-                <Trash2 size={18} color="#fff" style={{ marginRight: 8 }} />
-                <Text style={styles.buttonText}>Eliminar Plato</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+                    <Trash2 size={18} color="#fff" style={{ marginRight: 8 }} />
+                    <Text style={styles.buttonText}>Eliminar Plato</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     )
 }
 
@@ -159,6 +193,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#f2ebdd',
         alignItems: 'center',
         padding: 24
+    },
+    headerWrapper: {
+        height: 60,
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: '#f2ebdd',
+        zIndex: 30,
+    },
+    backButton: {
+        padding: 4,
+        marginBottom: 0,
+        alignSelf: 'flex-start',
     },
     title: {
         fontSize: 26,

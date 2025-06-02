@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { restaurantsData } from '../constants/data'
+import { useRouter } from 'expo-router'
+import { ArrowLeft } from 'lucide-react-native'
 
-type HeaderProps = {
-    restaurantName: string
-    codigo: string
-}
-
-export default function Header({ codigo }: HeaderProps) {
-    const restaurant = restaurantsData[codigo]
+export default function Header() {
+    const router = useRouter()
     const [search, setSearch] = useState('')
 
     const handleSearchChange = (text: string) => {
@@ -19,9 +15,9 @@ export default function Header({ codigo }: HeaderProps) {
     return (
         <SafeAreaView style={styles.safeArea} edges={['left', 'right']}>
             <View style={styles.headerRow}>
-                {restaurant?.logo && (
-                    <Image source={restaurant.logo} style={styles.logo} resizeMode="contain" />
-                )}
+                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                    <ArrowLeft size={28} color="#000" />
+                </TouchableOpacity>
                 <TextInput
                     style={styles.searchInput}
                     placeholder="Buscar en la carta..."
@@ -36,7 +32,7 @@ export default function Header({ codigo }: HeaderProps) {
 const styles = StyleSheet.create({
     safeArea: {
         backgroundColor: '#f2ebdd',
-        marginBottom: 8,
+        paddingVertical: 14,
     },
     headerRow: {
         flexDirection: 'row',
@@ -45,15 +41,9 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         backgroundColor: '#f2ebdd',
     },
-    logo: {
-        width: 65,
-        height: 65,
-        borderWidth: 2,
-        borderColor: '#000',
-        borderRadius: 100,
-        backgroundColor: '#fff',
-        marginLeft: 5,
-        marginRight: 14,
+    backButton: {
+        padding: 4,
+        marginRight: 30,
     },
     searchInput: {
         flex: 1,
@@ -62,8 +52,6 @@ const styles = StyleSheet.create({
         borderColor: '#a3a3a3',
         borderWidth: 1,
         fontSize: 14,
-        alignItems: 'center',
-        justifyContent: 'center',
         paddingHorizontal: 10,
         height: 44,
     },

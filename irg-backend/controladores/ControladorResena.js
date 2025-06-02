@@ -33,7 +33,17 @@ async function listarResenas(req, res) {
     }
 }
 
+async function listarMejoresResenas(req, res) {
+    try {
+        const mejoresResenas = await resenaService.obtenerMejoresResenas();
+        res.status(200).json({ success: true, data: mejoresResenas });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+}
+
 module.exports = {
     crearResena,
-    listarResenas
+    listarResenas,
+    listarMejoresResenas
 };
