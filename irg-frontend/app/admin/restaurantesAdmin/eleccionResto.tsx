@@ -29,6 +29,7 @@ export default function EleccionRubroAdmin() {
                             borderRadius: 50,
                             borderWidth: 1.8,
                             borderColor: '#000',
+                            marginBottom: 15,
                         }}
                     />
                 )}
@@ -56,33 +57,38 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     logoContainer: {
-        width: 100,
-        height: 100,
-        borderRadius: 100,
-        backgroundColor: '#ddd',
+        width: 120,
+        height: 120,
+        borderRadius: 60,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 30
     },
     title: {
         fontSize: 32,
+        fontWeight: 'bold',
         fontFamily: 'Playfair',
-        color: '#000',
-        textAlign: 'center'
+        color: '#4C1B26',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        letterSpacing: 1.5,
+        marginBottom: 10,
     },
     buttonsContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 30,
+        width: 100,
     },
     button: {
         backgroundColor: '#6c1f2c',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        borderRadius: 8,
-        margin: 11,
-        shadowRadius: 4,
-        elevation: 3,
+        paddingVertical: 14,
+        paddingHorizontal: 25,
+        borderRadius: 10,
+        margin: 10,
+        shadowRadius: 5,
+        elevation: 4,
     },
     buttonText: {
         color: '#fff',
