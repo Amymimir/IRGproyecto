@@ -46,7 +46,7 @@ const loginRestaurante = async (req, res) => {
       return res.status(400).json({ mensaje: 'Clave de acceso incorrecta' });
     }
 
-    const restaurante = rows[0]; 
+    const restaurante = rows[0];
     res.status(200).json({
       mensaje: 'Inicio de sesión exitoso',
       id_restaurante: restaurante.id_restaurante,
@@ -75,5 +75,5 @@ const obtenerTodosRestaurantes = async (req, res) => {
 module.exports = {
   registrarRestaurante,
   loginRestaurante,
-  obtenerTodosRestaurantes
+  obtenerTodosRestaurantes,
 };
