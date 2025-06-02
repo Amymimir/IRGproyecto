@@ -6,7 +6,8 @@ import MenuCard from '../../../components/MenuCard'
 import Categorias from '../../../components/Categorias'
 import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useCartaSearch } from '../../../contexts/SearchContext'
 import type { ScrollView as ScrollViewType } from 'react-native'
 import type { CategoriaConSub } from '../../../components/Categorias'
 
@@ -15,7 +16,6 @@ export default function RestauranteAdminPage() {
     const router = useRouter()
     const alias = restaurantAliases[codigo as string]
     const { restaurantes } = useRestaurantes()
-
     const restaurant = restaurantes[alias]
 
     const categorias: CategoriaConSub[] = Array.from(
@@ -26,8 +26,12 @@ export default function RestauranteAdminPage() {
     })
 
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0]?.principal || '')
+
     const scrollRef = useRef<ScrollViewType>(null)
     const seccionesRef = useRef<Record<string, number>>({})
+    const platosRef = useRef<Record<string, number>>({})
+
+    const { setNombresPlatos, setBuscarYScroll } = useCartaSearch()
 
     const handleCategoriaPress = (cat: string) => {
         setCategoriaSeleccionada(cat)
@@ -41,6 +45,23 @@ export default function RestauranteAdminPage() {
         seccionesRef.current[categoria] = y
     }
 
+    const guardarPlatoPosicion = (name: string, y: number) => {
+        platosRef.current[name.toLowerCase()] = y
+    }
+
+    const scrollAlPlato = (name: string) => {
+        const y = platosRef.current[name.toLowerCase()]
+        if (scrollRef.current && y !== undefined) {
+            scrollRef.current.scrollTo({ y: y - 80, animated: true })
+        }
+    }
+
+    useEffect(() => {
+        const nombres = restaurant.platos.map(p => p.name)
+        setNombresPlatos(nombres)
+        setBuscarYScroll(() => scrollAlPlato)
+    }, [restaurant.platos])
+
     const categoriasUnicas = [...new Set(restaurant.platos.map(p => p.category))]
 
     return (
@@ -49,6 +70,7 @@ export default function RestauranteAdminPage() {
                 ref={scrollRef}
                 contentContainerStyle={styles.container}
                 stickyHeaderIndices={[0, 4]}
+                keyboardShouldPersistTaps="handled"
             >
                 <Header />
 
@@ -80,8 +102,8 @@ export default function RestauranteAdminPage() {
                     />
                 </View>
 
-                {categoriasUnicas.map((cat, catIndex) => {
-                    const platosFiltrados = restaurant.platos.filter(p => p.category === cat)
+                {categoriasUnicas.map((cat) => {
+                    const platos = restaurant.platos.filter(p => p.category === cat)
 
                     return (
                         <View
@@ -90,27 +112,31 @@ export default function RestauranteAdminPage() {
                         >
                             <Text style={styles.categoryTitle}>{cat}</Text>
 
-                            {platosFiltrados.map((item) => {
+                            {platos.map((item) => {
                                 const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
 
                                 return (
-                                    <MenuCard
+                                    <View
                                         key={`${cat}-${item.name}`}
-                                        title={item.name}
-                                        description={item.description}
-                                        image={item.image}
-                                        subCategory={item.subCategory}
-                                        category={item.category}
-                                        onEdit={() =>
-                                            router.push({
-                                                pathname: '/admin/restaurantesAdmin/editarPlato',
-                                                params: {
-                                                    codigo,
-                                                    index: String(globalIndex),
-                                                },
-                                            })
-                                        }
-                                    />
+                                        onLayout={e => guardarPlatoPosicion(item.name, e.nativeEvent.layout.y)}
+                                    >
+                                        <MenuCard
+                                            title={item.name}
+                                            description={item.description}
+                                            image={item.image}
+                                            subCategory={item.subCategory}
+                                            category={item.category}
+                                            onEdit={() =>
+                                                router.push({
+                                                    pathname: '/admin/restaurantesAdmin/editarPlato',
+                                                    params: {
+                                                        codigo,
+                                                        index: String(globalIndex),
+                                                    },
+                                                })
+                                            }
+                                        />
+                                    </View>
                                 )
                             })}
 
