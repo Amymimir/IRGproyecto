@@ -92,13 +92,15 @@ const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        marginBottom: 25,
+        marginBottom: 15,
+        alignSelf: 'center',
     },
     title: {
         fontSize: 20,
         fontFamily: 'Playfair',
         color: '#6c1f2c',
-        marginBottom: 20,
+        marginTop: 40,
+        marginBottom: 40,
         textAlign: 'center',
     },
     input: {
