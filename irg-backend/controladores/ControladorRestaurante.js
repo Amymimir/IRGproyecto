@@ -30,5 +30,5 @@ const obtenerTodosRestaurantes = async (req, res) => {
 module.exports = {
   registrarRestaurante,
   loginRestaurante,
-  obtenerTodosRestaurantes
+  obtenerTodosRestaurantes,
 };

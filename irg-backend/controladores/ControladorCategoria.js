@@ -55,6 +55,7 @@ const borrarCategoria = async (req, res) => {
   }
 };
 
+
 module.exports = {
   listarCategoria,
   registrarCategoria,

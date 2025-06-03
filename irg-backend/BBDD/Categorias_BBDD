@@ -1,0 +1,60 @@
+-- 1. Insertar ENTRANTES (tipo 'frio')
+INSERT INTO Plato (nombre_plato, tipo, id_categoria, id_restaurante)
+SELECT 
+    nombre_plato, 
+    'frio' as tipo,
+    (SELECT id_categoria FROM Categoria WHERE nombre_categoria = 'ENTRANTES' AND id_restaurante = 1) as id_categoria,
+    1 as id_restaurante
+FROM (
+    SELECT 'Hummus de Remolacha' as nombre_plato UNION ALL
+    SELECT 'Empanadas horneadas argentinas' UNION ALL
+    SELECT 'Croquetas de Jamón Ibérico' UNION ALL
+    SELECT 'Croquetas de Bacalao' UNION ALL
+    SELECT 'Degustación de quesos' UNION ALL
+    SELECT 'Ración de Jamón de bellota 100%' UNION ALL
+    SELECT 'Ración de Cecina de León' UNION ALL
+    SELECT 'Provoleta Clásica' UNION ALL
+    SELECT 'Provoleta Ástor' UNION ALL
+    SELECT 'Ceviche frito' UNION ALL
+    SELECT 'Experiencia Limeña' UNION ALL
+    SELECT 'Tartar de Salmón' UNION ALL
+    SELECT 'Ensalada Ástor' UNION ALL
+    SELECT 'Char Siu' UNION ALL
+    SELECT 'Albóndigas de ternera'
+) platos;
+
+-- 2. Insertar SEGUNDOS (tipo 'caliente')
+INSERT INTO Plato (nombre_plato, tipo, id_categoria, id_restaurante)
+SELECT 
+    nombre_plato, 
+    'caliente' as tipo,
+    (SELECT id_categoria FROM Categoria WHERE nombre_categoria = 'SEGUNDOS' AND id_restaurante = 1) as id_categoria,
+    1 as id_restaurante
+FROM (
+    SELECT 'Risotto de Hongos' as nombre_plato UNION ALL
+    SELECT 'Bife de chorizo (lomo bajo)' UNION ALL
+    SELECT 'Ojo de Bife (lomo alto)' UNION ALL
+    SELECT 'Costillar de cerdo Extremeño' UNION ALL
+    SELECT 'Salmón a la veloute garlic' UNION ALL
+    SELECT 'Lomo de Corvina' UNION ALL
+    SELECT 'Gran Hamburguesa de Buey' UNION ALL
+    SELECT 'Pappardelle' UNION ALL
+    SELECT 'Pasta artesanal' UNION ALL
+    SELECT 'Pasta rellena (opción)'
+) platos;
+
+-- 3. Insertar POSTRES (tipo 'frio')
+INSERT INTO Plato (nombre_plato, tipo, id_categoria, id_restaurante)
+SELECT 
+    nombre_plato, 
+    'frio' as tipo,
+    (SELECT id_categoria FROM Categoria WHERE nombre_categoria = 'NUESTROS POSTRES' AND id_restaurante = 1) as id_categoria,
+    1 as id_restaurante
+FROM (
+    SELECT 'Tarta de Queso' as nombre_plato UNION ALL
+    SELECT '"Chocotorta"' UNION ALL
+    SELECT 'Brownie casero' UNION ALL
+    SELECT 'Helado artesanal del día' UNION ALL
+    SELECT 'Affogato' UNION ALL
+    SELECT 'Ben affogato'
+) platos;
