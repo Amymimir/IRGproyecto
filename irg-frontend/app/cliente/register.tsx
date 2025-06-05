@@ -94,7 +94,7 @@ export default function RegisterScreen() {
 const handleSubmit = async () => {
   if (isValid()) {
     try {
-      await fetch("http://localhost:3000/usuarios", {
+      await fetch("http://192.168.1.146:3000/usuarios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
