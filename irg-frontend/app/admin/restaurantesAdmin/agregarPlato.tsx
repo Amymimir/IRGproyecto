@@ -10,9 +10,10 @@ import {
     TouchableOpacity,
     View
 } from 'react-native'
-import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
+import { restaurantAliases } from '../../../constants/data'
 
+const categorias = ['Entrantes', 'Primeros', 'Segundos', 'Postres', 'Bebidas']
 const opcionesSub = ['Frio', 'Caliente']
 
 export default function AgregarPlato() {
@@ -21,7 +22,16 @@ export default function AgregarPlato() {
     const alias = restaurantAliases[codigo as string]
     const { restaurantes, agregarPlato } = useRestaurantes()
 
-    const categorias = restaurantes[alias].menu
+    if (!alias || !restaurantes || Object.keys(restaurantes).length === 0 || !restaurantes[alias]) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f2ebdd' }}>
+                <Text style={{ color: '#6c1f2c', fontSize: 16, fontFamily: 'Playfair' }}>
+                    Restaurante no encontrado.
+                </Text>
+            </View>
+        )
+    }
+
     const platosExistentes = restaurantes[alias].platos
 
     const [name, setName] = useState('')
@@ -32,11 +42,6 @@ export default function AgregarPlato() {
     const handleAdd = () => {
         if (!name.trim() || !description.trim() || !category.trim() || !subCategory.trim()) {
             Alert.alert('Faltan datos', 'Completá todos los campos obligatorios.')
-            return
-        }
-
-        if (!categorias.includes(category)) {
-            Alert.alert('Categoría inválida', 'Seleccioná una categoría válida.')
             return
         }
 

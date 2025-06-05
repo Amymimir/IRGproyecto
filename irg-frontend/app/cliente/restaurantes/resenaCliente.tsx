@@ -5,9 +5,9 @@ import { ArrowLeft } from "lucide-react-native";
 
 export default function ResenaCliente() {
     const router = useRouter();
-    const { id, plato } = useLocalSearchParams();
+    const { id, category } = useLocalSearchParams();
 
-    if (!id || !plato) {
+    if (typeof id !== 'string' || typeof category !== 'string') {
         return (
             <View style={styles.container}>
                 <Text style={styles.errorText}>
@@ -17,52 +17,43 @@ export default function ResenaCliente() {
         );
     }
 
-    const tipoPlato = (typeof plato === "string") ? plato.toLowerCase() : "";
+    const tipoPlato = category.toLowerCase();
     const esBebida = tipoPlato === "bebidas";
 
-    const preguntasTestComida = [
-        "¿Cómo calificas el sabor del plato?",
-        "¿Cómo calificas la presentación del plato?",
-        "¿La temperatura de la comida fue adecuada?",
-        "¿La textura y cocción fueron de tu agrado?",
-        "¿Recomendarías este plato a otros?"
-    ];
-    const preguntasAbiertasComida = [
-        "¿Qué es lo que más te gustó del plato?",
-        "¿Encontraste algo que se podría mejorar en el plato?",
-        "¿El plato cumplió con tus expectativas? ¿Por qué?",
-        "Comentarios sobre la presentación o apariencia:",
-        "Comentarios adicionales:"
-    ];
-    const preguntasTestBebida = [
-        "¿Cómo calificas el sabor de la bebida?",
-        "¿La temperatura de la bebida fue adecuada?",
-        "¿Cómo calificas la presentación de la bebida?",
-        "¿La cantidad de la bebida fue adecuada?",
-        "¿Recomendarías esta bebida a otros?"
-    ];
-    const preguntasAbiertasBebida = [
-        "¿Qué es lo que más te gustó de la bebida?",
-        "¿Qué se podría mejorar en la bebida?",
-        "¿La bebida cumplió tus expectativas? ¿Por qué?",
-        "Comentarios sobre la presentación o servicio de la bebida:",
-        "Comentarios adicionales:"
-    ];
+    const preguntasTest = esBebida
+        ? [
+            "¿Cómo calificas el sabor de la bebida?",
+            "¿La temperatura de la bebida fue adecuada?",
+            "¿Cómo calificas la presentación de la bebida?",
+            "¿La cantidad de la bebida fue adecuada?",
+            "¿Recomendarías esta bebida a otros?"
+        ]
+        : [
+            "¿Cómo calificas el sabor del plato?",
+            "¿Cómo calificas la presentación del plato?",
+            "¿La temperatura de la comida fue adecuada?",
+            "¿La textura y cocción fueron de tu agrado?",
+            "¿Recomendarías este plato a otros?"
+        ];
 
-    const preguntasTest = esBebida ? preguntasTestBebida : preguntasTestComida;
-    const preguntasAbiertas = esBebida ? preguntasAbiertasBebida : preguntasAbiertasComida;
+    const preguntasAbiertas = esBebida
+        ? [
+            "¿Qué es lo que más te gustó de la bebida?",
+            "¿Qué se podría mejorar en la bebida?",
+            "¿La bebida cumplió tus expectativas? ¿Por qué?",
+            "Comentarios sobre la presentación o servicio de la bebida:",
+            "Comentarios adicionales:"
+        ]
+        : [
+            "¿Qué es lo que más te gustó del plato?",
+            "¿Encontraste algo que se podría mejorar en el plato?",
+            "¿El plato cumplió con tus expectativas? ¿Por qué?",
+            "Comentarios sobre la presentación o apariencia:",
+            "Comentarios adicionales:"
+        ];
 
-    const [respuestasTest, setRespuestasTest] = useState<Array<number | null>>(
-        () => Array(preguntasTest.length).fill(null)
-    );
-    const [respuestasAbiertas, setRespuestasAbiertas] = useState<Array<string>>(
-        () => Array(preguntasAbiertas.length).fill("")
-    );
-
-    useEffect(() => {
-        setRespuestasTest(Array(preguntasTest.length).fill(null));
-        setRespuestasAbiertas(Array(preguntasAbiertas.length).fill(""));
-    }, [plato]);
+    const [respuestasTest, setRespuestasTest] = useState<number[]>(Array(preguntasTest.length).fill(0));
+    const [respuestasAbiertas, setRespuestasAbiertas] = useState<string[]>(Array(preguntasAbiertas.length).fill(""));
 
     const handleSelectRating = (questionIndex: number, value: number) => {
         const nuevasRespuestas = [...respuestasTest];
@@ -76,12 +67,12 @@ export default function ResenaCliente() {
         setRespuestasAbiertas(nuevosTextos);
     };
 
-    const allTestAnswered = respuestasTest.every(val => val !== null);
+    const allTestAnswered = respuestasTest.every(val => val > 0);
 
     const enviarResena = () => {
         const nuevaResena = {
             restauranteId: id,
-            tipoPlato: plato,
+            tipoPlato: category,
             calificaciones: respuestasTest,
             comentarios: respuestasAbiertas,
             fecha: new Date().toISOString()
@@ -90,14 +81,7 @@ export default function ResenaCliente() {
         Alert.alert(
             "¡Reseña enviada!",
             "Gracias por tu reseña.",
-            [
-                {
-                    text: "Aceptar",
-                    onPress: () => {
-                        router.push(`/cliente/restaurantes/${id}`);
-                    }
-                }
-            ]
+            [{ text: "Aceptar", onPress: () => router.push(`/cliente/restaurantes/${id}`) }]
         );
     };
 
@@ -233,9 +217,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 50
     },
-    backText: {
-        fontSize: 16,
-    },
     backButton: {
         position: 'absolute',
         top: 30,
@@ -245,6 +226,6 @@ const styles = StyleSheet.create({
         padding: 8,
         borderWidth: 1,
         borderColor: '#ffffff',
-        borderRadius: 10,
+        borderRadius: 10
     }
 });
