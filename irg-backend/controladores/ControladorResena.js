@@ -9,6 +9,19 @@ const crearResena = async (req, res) => {
   }
 };
 
+const obtenerResenaPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resena = await Resena.obtenerPorId(id);
+    if (!resena) {
+      return res.status(404).json({ error: "Reseña no encontrada." });
+    }
+    res.status(200).json(resena);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener la reseña." });
+  }
+};
+
 const listarResenas = async (req, res) => {
   try {
     const resenas = await Resena.obtenerTodas();
@@ -46,5 +59,6 @@ module.exports = {
   crearResena,
   listarResenas,
   listarMejoresResenas,
-  listarResenasPorRestaurante
+  listarResenasPorRestaurante,
+  obtenerResenaPorId
 };

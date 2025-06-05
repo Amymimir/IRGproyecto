@@ -35,6 +35,22 @@ class Usuario {
     return rows.map(row => new Usuario(row));
   }
 
+  /* Obtener usuario por ID */
+  static async obtenerPorId(id_usuario) {
+    if (!id_usuario) {
+      throw new Error("Debes proporcionar el ID del usuario.");
+    }
+
+    const query = `SELECT * FROM usuario WHERE id_usuario = ?`;
+    const [rows] = await pool.execute(query, [id_usuario]);
+
+    if (rows.length === 0) {
+      throw new Error("No se encontró un usuario con ese ID.");
+    }
+
+    return new Usuario(rows[0]);
+  }
+
   /* Eliminar usuario por ID */
 
   static async eliminar(id_usuario) {

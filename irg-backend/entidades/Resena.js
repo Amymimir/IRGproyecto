@@ -78,6 +78,13 @@ class Resena {
     const [rows] = await pool.query(query);
     return rows.map(row => new Resena(row));
   }
+
+  /* Obtener reseña por ID */
+  static async obtenerPorId(id_reseña) {
+    const [rows] = await pool.execute('SELECT * FROM Resena WHERE id_reseña = ?', [id_reseña]);
+    if (rows.length === 0) return null;
+    return new Resena(rows[0]);
+  }
 }
 
 module.exports = Resena;

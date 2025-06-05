@@ -11,6 +11,9 @@ router.post('/', usuarioControlador.crearUsuario); // POST /usuarios
 // Ruta para listar todos los usuarios
 router.get('/', usuarioControlador.listarUsuarios); // GET /usuarios
 
+// Ruta para obtener un usuario por ID
+router.get('/:id', usuarioControlador.obtenerUsuarioPorId); // GET /usuarios/:id
+
 // Eliminar usuario por ID
 router.delete('/:id', usuarioControlador.borrarUsuario); // DELETE /usuarios/:id
 
