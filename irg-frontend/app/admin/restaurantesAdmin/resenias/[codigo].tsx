@@ -1,41 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { restaurantsData, restaurantAliases } from '../../../../constants/data';
-
-const mockReviews = {
-    astor2024: [
-        {
-            title: 'Excelente comida',
-            description: 'Todo riquísimo, volveremos pronto.',
-            date: '2024-05-01',
-            p1_satisfaccion: 4,
-            p2_satisfaccion: 5,
-            p3_satisfaccion: 3,
-            p4_satisfaccion: 4,
-            p5_satisfaccion: 5,
-            p1_texto: 'El sabor estuvo increíble.',
-            p2_texto: 'La textura fue excelente.',
-            p3_texto: 'Podría mejorar la presentación.',
-            p4_texto: 'Buena combinación de ingredientes.',
-            p5_texto: 'Definitivamente volvería a pedirlo.'
-        },
-        {
-            title: 'Atención rápida',
-            description: 'Muy buena atención al cliente.',
-            date: '2024-04-28',
-            p1_satisfaccion: 5,
-            p2_satisfaccion: 4,
-            p3_satisfaccion: 4,
-            p4_satisfaccion: 5,
-            p5_satisfaccion: 5,
-            p1_texto: 'El servicio fue muy amable.',
-            p2_texto: 'Buena temperatura de los platos.',
-            p3_texto: 'Ambiente agradable.',
-            p4_texto: 'Muy buen sabor.',
-            p5_texto: 'Recomendaría este restaurante.'
-        },
-    ],
-};
 
 export default function VerResenasPage() {
     const { codigo } = useLocalSearchParams();
@@ -45,7 +11,33 @@ export default function VerResenasPage() {
     const restaurant = restaurantsData[resolvedCodigo as string];
     const restaurantName = restaurant?.name || codigo;
 
-    const reviews = mockReviews[codigo as keyof typeof mockReviews] || [];
+    // Estado para almacenar las reseñas reales del backend
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function obtenerResenas() {
+            try {
+                const response = await fetch(`http://localhost:3000/resenas?restaurante_id=${codigo}`);
+                const data = await response.json();
+                setReviews(data); // Guardamos las reseñas reales en el estado
+            } catch (error) {
+                console.error("Error al obtener reseñas:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        obtenerResenas();
+    }, [codigo]);
+
+    if (loading) {
+        return (
+            <View style={styles.notFoundContainer}>
+                <Text style={styles.notFoundText}>Cargando reseñas...</Text>
+            </View>
+        );
+    }
 
     if (reviews.length === 0) {
         return (
@@ -58,7 +50,9 @@ export default function VerResenasPage() {
         );
     }
 
-    const sortedReviews = reviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const sortedReviews = reviews.sort(
+        (a: { date: string }, b: { date: string }) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -68,7 +62,7 @@ export default function VerResenasPage() {
 
             <Text style={styles.title}>Reseñas de {restaurantName}</Text>
 
-            {sortedReviews.map((review, index) => (
+            {sortedReviews.map((review: { title: string; description: string; date: string, p1_satisfaccion: number, p2_satisfaccion: number, p3_satisfaccion: number, p4_satisfaccion: number, p5_satisfaccion: number, p1_texto: string, p2_texto: string, p3_texto: string, p4_texto: string, p5_texto: string }, index: number) => (
                 <View key={index} style={styles.reviewCard}>
                     <Text style={styles.reviewTitle}>{review.title}</Text>
                     <Text style={styles.reviewDescription}>{review.description}</Text>
@@ -126,11 +120,11 @@ const styles = StyleSheet.create({
         borderColor: '#e0b084',
     },
     sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#4C1B26',
-    marginBottom: 10,
-},
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#4C1B26',
+        marginBottom: 10,
+    },
     commentBox: {
         padding: 10,
         marginVertical: 5,

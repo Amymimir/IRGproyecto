@@ -27,8 +27,24 @@ const listarMejoresResenas = async (req, res) => {
   }
 };
 
+const listarResenasPorRestaurante = async (req, res) => {
+  try {
+    const { restaurante_id } = req.query;
+
+    if (!restaurante_id) {
+      return res.status(400).json({ error: "Debe proporcionar un restaurante_id." });
+    }
+
+    const resenas = await Resena.obtenerResenasPorRestaurante(restaurante_id);
+    res.status(200).json(resenas);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   crearResena,
   listarResenas,
-  listarMejoresResenas
+  listarMejoresResenas,
+  listarResenasPorRestaurante
 };
