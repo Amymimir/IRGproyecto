@@ -1,34 +1,53 @@
-import { useFonts } from 'expo-font';
-import { SplashScreen, Slot } from 'expo-router';
-import { useEffect } from 'react';
-import { StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as ScreenOrientation from 'expo-screen-orientation';
-import { RestoProvider } from '../contexts/RestoContext';
+import { Slot } from 'expo-router'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { CartaSearchProvider } from '../contexts/SearchContext'
+import { RestoProvider } from '../contexts/RestoContext'
+import { View, StyleSheet, useWindowDimensions } from 'react-native'
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    Playfair: require('../assets/fonts/PlayfairDisplay-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (!fontsLoaded) SplashScreen.preventAutoHideAsync();
-    else SplashScreen.hideAsync();
-  }, [fontsLoaded]);
-
-  useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-  }, []);
-
-  if (!fontsLoaded) return null;
+  const { width } = useWindowDimensions()
+  const isWide = width > 500
 
   return (
-    <RestoProvider>
-      <StatusBar backgroundColor="#2b2b2b" barStyle="light-content" translucent={false} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#2b2b2b' }}>
-        <Slot />
-      </SafeAreaView>
-    </RestoProvider>
-  );
+    <SafeAreaProvider>
+      <CartaSearchProvider>
+        <RestoProvider>
+          <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+            {isWide ? (
+              <View style={styles.outer}>
+                <View style={styles.inner}>
+                  <Slot />
+                </View>
+              </View>
+            ) : (
+              <View style={styles.full}>
+                <Slot />
+              </View>
+            )}
+          </SafeAreaView>
+        </RestoProvider>
+      </CartaSearchProvider>
+    </SafeAreaProvider>
+  )
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#2b2b2b',
+  },
+  outer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inner: {
+    width: 400,
+    height: '100%',
+    backgroundColor: '#f2ebdd',
+  },
+  full: {
+    flex: 1,
+    backgroundColor: '#f2ebdd',
+  },
+})

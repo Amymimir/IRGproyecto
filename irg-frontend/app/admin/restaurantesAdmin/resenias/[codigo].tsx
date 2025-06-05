@@ -2,7 +2,6 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { restaurantsData, restaurantAliases } from '../../../../constants/data';
 
-// Datos simulados de reseñas con satisfacción y comentarios
 const mockReviews = {
     astor2024: [
         {

@@ -8,21 +8,23 @@ export type MenuCardClienteProps = {
     index: number
     score?: number
     category: string
+    subCategory: string
     onVote?: (rating: number) => void
 }
 
-export default function MenuCardCliente({ title, description, image, index, score, category, onVote }: MenuCardClienteProps) {
+export default function MenuCardCliente({ title, description, image, index, score, category, subCategory }: MenuCardClienteProps) {
     const router = useRouter()
     const { id } = useLocalSearchParams()
 
     const handlePress = () => {
-        if (!id) return
+        if (!id || !category) return
         router.push({
-            pathname: '/cliente/restaurantes/reseniaCliente',
+            pathname: '/cliente/restaurantes/resenaCliente',
             params: {
                 id: String(id),
-                plato: category 
-            }
+                category,
+                subCategory
+            },
         })
     }
 
