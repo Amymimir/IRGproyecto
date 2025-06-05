@@ -11,4 +11,7 @@ router.get("/", resenaControlador.listarResenas); // GET /resenas
 // Ruta para obtener las 5 mejores reseñas
 router.get("/top5", resenaControlador.listarMejoresResenas);
 
+//Ruta para obtener las reseñas por restaurante
+router.get("/porRestaurante", resenaControlador.listarResenasPorRestaurante);
+
 module.exports = router;

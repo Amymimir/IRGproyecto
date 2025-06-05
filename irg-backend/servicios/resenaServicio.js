@@ -38,8 +38,29 @@ async function obtenerMejoresResenas() {
     }
 }
 
+async function obtenerResenasPorRestaurante(restaurante_id) {
+    if (!restaurante_id) {
+        throw new Error("Debe proporcionar un restaurante_id.");
+    }
+
+    try {
+        const query = `
+            SELECT * FROM Resena 
+            WHERE id_plato IN (
+                SELECT id FROM Plato WHERE id_restaurante = ?
+            )
+            ORDER BY promedio_estrellas DESC;
+        `;
+        const [rows] = await pool.query(query, [restaurante_id]);
+        return rows;
+    } catch (error) {
+        throw new Error("Error al obtener las reseñas, por el error: " + error.message);
+    }
+}
+
 module.exports = {
     crearResenia,
     obtenerResenias,
-    obtenerMejoresResenas
+    obtenerMejoresResenas,
+    obtenerResenasPorRestaurante
 };
