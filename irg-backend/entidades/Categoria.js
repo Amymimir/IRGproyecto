@@ -1,33 +1,44 @@
 const pool = require('../BBDD/db');
 
-async function crearCategoria(nombre_categoria) {
-  const query = 'INSERT INTO categoria (nombre_categoria) VALUES (?)';
-  const [resultado] = await pool.execute(query, [nombre_categoria]);
+class Categoria {
+  constructor({ id_categoria, nombre_categoria }) {
+    this.id_categoria = id_categoria;
+    this.nombre_categoria = nombre_categoria;
+  }
 
-  return {
-    id: resultado.insertId,
-    nombre_categoria
-  };
+  /* Crear una categoría */
+
+  static async crear(nombre_categoria) {
+    const query = 'INSERT INTO Categoria (nombre_categoria) VALUES (?)';
+    const [resultado] = await pool.execute(query, [nombre_categoria]);
+    return new Categoria({
+      id_categoria: resultado.insertId,
+      nombre_categoria
+    });
+  }
+
+  /* Obtener todas las categorías */
+
+  static async obtenerTodas() {
+    const [rows] = await pool.query('SELECT * FROM Categoria');
+    return rows.map(row => new Categoria(row));
+  }
+
+  /* Actualizar una categoría */
+
+  static async actualizar(id_categoria, nombre_categoria) {
+    const query = 'UPDATE Categoria SET nombre_categoria = ? WHERE id_categoria = ?';
+    await pool.execute(query, [nombre_categoria, id_categoria]);
+    return new Categoria({ id_categoria, nombre_categoria });
+  }
+
+  /* Eliminar una categoría */
+
+  static async eliminar(id_categoria) {
+    const query = 'DELETE FROM Categoria WHERE id_categoria = ?';
+    await pool.execute(query, [id_categoria]);
+    return { message: 'Categoría eliminada' };
+  }
 }
 
-async function obtenerCategoria() {
-  const [rows] = await pool.query('SELECT * FROM categoria');
-  return rows;
-}
-
-async function actualizarCategoria(id_categoria, nombre_categoria) {
-  const query = 'UPDATE Categoria SET nombre_categoria = ? WHERE id_categoria = ?';
-  await pool.execute(query, [nombre_categoria, id_categoria]);
-}
-
-async function eliminarCategoria(id_categoria) {
-  const query = 'DELETE FROM Categoria WHERE id_categoria = ?';
-  await pool.execute(query, [id_categoria]);
-}
-
-module.exports = {
-  crearCategoria,
-  obtenerCategoria,
-  actualizarCategoria,
-  eliminarCategoria
-};
+module.exports = Categoria;

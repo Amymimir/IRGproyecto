@@ -128,7 +128,7 @@ export default function EditarPlato() {
                 />
 
                 <Text style={styles.label}>Categoría Principal</Text>
-                <View style={styles.dropdownWrapper}>
+                <View style={styles.dropdownCentered}>
                     {categorias.map((cat) => (
                         <TouchableOpacity
                             key={cat}
@@ -254,6 +254,13 @@ const styles = StyleSheet.create({
     dropdownWrapper: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        gap: 8,
+        marginTop: 4
+    },
+    dropdownCentered: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
         gap: 8,
         marginTop: 4
     },

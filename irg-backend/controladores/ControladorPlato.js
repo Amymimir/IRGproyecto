@@ -1,40 +1,35 @@
-const { crearPlato, obtenerPlatos, eliminarPlato } = require('../entidades/Plato');
-// Registrar un nuevo plato
-async function registrarPlato(req, res) {
-    console.log("Datos recibidos en Post", req.body);
-    const resultado = await crearPlato(req.body);
-    res.status(resultado.success ? 201 : 400).json(resultado);
-}
+const Plato = require('../entidades/Plato');
 
-// Listar todos los platos
-async function listarPlatos(req, res) {
-    const resultado = await obtenerPlatos();
-    res.status(resultado.success ? 200 : 500).json(resultado);
-}
+const registrarPlato = async (req, res) => {
+  try {
+    const nuevoPlato = await Plato.crear(req.body);
+    res.status(201).json(nuevoPlato);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-// Eliminar plato por ID
-async function borrarPlato(req, res) {
-    try {
-        const id_plato = req.params.id;
+const listarPlatos = async (req, res) => {
+  try {
+    const platos = await Plato.obtenerTodos();
+    res.status(200).json(platos);
+  } catch (error) {
+    res.status(500).json({ error: "No se pudo obtener la lista de platos." });
+  }
+};
 
-        if (!id_plato) {
-            return res.status(400).json({ success: false, error: "Debes proporcionar un ID válido." });
-        }
-
-        const resultado = await eliminarPlato(id_plato);
-
-        if (!resultado.success) {
-            return res.status(404).json(resultado); // Error si el plato no existe
-        }
-
-        res.status(200).json(resultado); // Confirmación de eliminación
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-}
+const borrarPlato = async (req, res) => {
+  try {
+    const { id_plato } = req.params;
+    const mensaje = await Plato.eliminar(id_plato);
+    res.status(200).json(mensaje);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
-    registrarPlato,
-    listarPlatos,
-    borrarPlato 
+  registrarPlato,
+  listarPlatos,
+  borrarPlato
 };

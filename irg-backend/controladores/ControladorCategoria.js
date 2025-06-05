@@ -1,18 +1,15 @@
-const pool = require('../BBDD/db');
-const { crearCategoria, obtenerCategoria, actualizarCategoria, eliminarCategoria } = require('../entidades/Categoria');
+const Categoria = require('../entidades/Categoria');
 
-// 🟢 Visible para todos
 const listarCategoria = async (req, res) => {
   try {
-    const categoria = await obtenerCategoria();
-    res.status(200).json(categoria);
+    const categorias = await Categoria.obtenerTodas();
+    res.status(200).json(categorias);
   } catch (error) {
     console.error('Error al obtener categorías:', error);
     res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };
 
-// 🔐 Solo restaurante
 const registrarCategoria = async (req, res) => {
   const { nombre_categoria } = req.body;
 
@@ -21,18 +18,14 @@ const registrarCategoria = async (req, res) => {
   }
 
   try {
-    const nuevaCategoria = await crearCategoria(nombre_categoria);
-    res.status(201).json({
-      mensaje: 'Categoría registrada con éxito',
-      ...nuevaCategoria
-    });
+    const nuevaCategoria = await Categoria.crear(nombre_categoria);
+    res.status(201).json(nuevaCategoria);
   } catch (error) {
     console.error('Error al registrar categoría:', error);
     res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };
 
-// 🔐 Solo restaurante
 const editarCategoria = async (req, res) => {
   const { id_categoria } = req.params;
   const { nombre_categoria } = req.body;
@@ -42,21 +35,20 @@ const editarCategoria = async (req, res) => {
   }
 
   try {
-    await actualizarCategoria(id_categoria, nombre_categoria);
-    res.json({ mensaje: 'Categoría actualizada correctamente' });
+    const categoriaActualizada = await Categoria.actualizar(id_categoria, nombre_categoria);
+    res.json(categoriaActualizada);
   } catch (error) {
     console.error('Error al editar categoría:', error);
     res.status(500).json({ mensaje: 'Error interno del servidor' });
   }
 };
 
-// 🔐 Solo restaurante
 const borrarCategoria = async (req, res) => {
   const { id_categoria } = req.params;
 
   try {
-    await eliminarCategoria(id_categoria);
-    res.json({ mensaje: 'Categoría eliminada correctamente' });
+    const mensaje = await Categoria.eliminar(id_categoria);
+    res.json(mensaje);
   } catch (error) {
     console.error('Error al eliminar categoría:', error);
     res.status(500).json({ mensaje: 'Error interno del servidor' });

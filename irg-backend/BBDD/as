@@ -1,0 +1,419 @@
+-- RIOJA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Zuazo Gastón crianza', 'frio', 7, 1),
+('Pies Negros', 'frio', 7, 1),
+('Campo Viejo Gran Reserva', 'frio', 7, 1),
+('Coraz', 'frio', 7, 1),
+('Marqués de Vargas Rva', 'frio', 7, 1),
+('Viña Ardanza', 'frio', 7, 1),
+('Abel Mendoza Selección Personal', 'frio', 7, 1),
+('Alomado, Cuentaviñas', 'frio', 7, 1),
+('904, La Rioja Alta S.A.', 'frio', 7, 1),
+('Los Yelsones', 'frio', 7, 1),
+('La Nieta 2022', 'frio', 7, 1);
+
+-- RIBERA DE DUERO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Tamiz', 'frio', 8, 1),
+('Edelmira Romero, 9 meses', 'frio', 8, 1),
+('Conde de San Cristóbal Cza', 'frio', 8, 1),
+('Dominio del Soto', 'frio', 8, 1),
+('Adamá', 'frio', 8, 1),
+('El Espino, Áster', 'frio', 8, 1),
+('Vizcarra Torralvo', 'frio', 8, 1),
+('Tinto Pesquera Reserva', 'frio', 8, 1),
+('Milsetentayseis. Eco', 'frio', 8, 1),
+('Dominio del Águila Reserva', 'frio', 8, 1),
+('Flor de Pingus 2021', 'frio', 8, 1);
+
+-- BIERZO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Abad Dom Bueno, Mencía', 'frio', 9, 1),
+('La Fulgueira, Mencía', 'frio', 9, 1),
+('Villa de Corullón, J. Palacios, Mencía', 'frio', 9, 1);
+
+-- RIBERA SACRA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Paxaro Tolo, Mencía', 'frio', 10, 1);
+
+-- MADRID / SIERRA DE GREDOS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('La Cruz Verde, garnacha', 'frio', 11, 1),
+('Alto de la Estrella, garnacha', 'frio', 11, 1),
+('La mujer cañon, garnacha', 'frio', 11, 1),
+('LAS IRUELAS, Daniel Landi, garnacha', 'frio', 11, 1);
+
+-- JUMILLA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Juan Gil, etiqueta plata, Monastrell', 'frio', 12, 1),
+('Valtosca, Casa Castillo, Syrah', 'frio', 12, 1);
+
+-- PRIORAT
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Les Crestes', 'frio', 13, 1),
+('Clos Erasmus Laurel, garnacha, Syrah, Cabernet Sauvignon. Eco', 'frio', 13, 1);
+
+-- MENDOZA, ARGENTINA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Bobó Bourgeois, Cabernet Sauvignon 2021', 'frio', 14, 1),
+('Bobó Bohemian, Malbec 2021', 'frio', 14, 1),
+('Bobó, Malbec, Cabernet Franc', 'frio', 14, 1),
+('Petit Bobó, Merlot, Cabernet Franc, Malbec', 'frio', 14, 1),
+('La Pérgola, Merlot', 'frio', 14, 1),
+('Imaginación al Poder, Flower Merlot', 'frio', 14, 1),
+('Imaginación al Poder, King Franc, Cabernet Franc', 'frio', 14, 1),
+('Imaginación al Poder, Power, Malbec', 'frio', 14, 1),
+('Zuccardi, Cabernet Franc', 'frio', 14, 1),
+('Polígonos, Zuccardi, Malbec', 'frio', 14, 1);
+
+-- RUSSIAN RIVER VALLEY, SONOMA COUNTY, CALIFORNIA, USA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Kenwood, Six Ridges, Pinot Noir', 'frio', 15, 1);
+
+-- HAWKE'S BAY, NEW ZELAND
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Church Road, Gran Reserve, Merlot- Cabernet Sauvignon', 'frio', 16, 1);
+
+-- BOURGOGNE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Mongeard Mugneret, Pinot Noir, Bourgogne, Francia', 'frio', 17, 1);
+
+-- CÔTE DE BEAUNE-VILLAGES, BOURGOGNE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Louis Jadot, Pinot Noir', 'frio', 18, 1);
+
+-- SANTENAY-MALADIERE PREMIER CRU, BOURGOGNE FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Domaine Prieur-Brunet, Pinot Noir', 'frio', 19, 1);
+
+-- POMMARD, CÔTE DE BEAUNE, BOURGOGNE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Château de Charodon, Pinot Noir, Pommard, Bourgogne, Francia', 'frio', 20, 1);
+
+-- CÔTES DU RHÔNE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('La Garrigue, Garnacha, Syrah. Eco', 'frio', 21, 1);
+
+-- CÔTES DU RHÔNE MASSIF D'UCHAUX, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Aleph, Syrah, Garnacha', 'frio', 22, 1);
+
+-- CÔTE RÔTIE, RHÔNE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('L Eglantine, Ferraton Père & Fils, Syrah', 'frio', 23, 1);
+
+-- GIGONDAS, RHÔNE SUD, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('La Gille, Famille Perrin, Granacha, Syrah', 'frio', 24, 1);
+
+-- CHATEAUNEUF DU PAPE, FRANCIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Le Pavris. Ferraton Père & Fils, Garnacha, Syrah', 'frio', 25, 1),
+('Les Sinards, Famille Perrin, Garnacha, Monastrell, Syrah', 'frio', 25, 1);
+
+-- BAROSSA VALLEY, AUSTRALIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Sucette, Garnacha', 'frio', 26, 1);
+
+-- BRUNELLO DI MONTALCINO, TOSCANA, ITALIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Il Marronetto, Sangiovese', 'frio', 27, 1);
+
+-- BARBERA D'ALBA, PIAMONTE, ITALIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Parusso, Barbera', 'frio', 28, 1);
+
+-- LANGHE, PIAMONTE, ITALIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Parusso, Nebbiolo', 'frio', 29, 1);
+
+-- ETNA, SICILIA, ITALIA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Tenuta delle Terre Nere "Nerello mascalese / Nerello cappuccio" ECO', 'frio', 30, 1);
+
+-- VERDEJO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Granadilla, Rueda', 'frio', 31, 1),
+('Fenomenal, Rueda. Eco', 'frio', 31, 1),
+('Belondrade y Lurton, Rueda', 'frio', 31, 1);
+
+-- ALBILLO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('La Viña de ayer, Madrid', 'frio', 32, 1),
+('Vino dulce. "Pan caliente", Sotomanrique, Madrid', 'frio', 32, 1),
+('Dominio del Soto crianza, Ribera del Duero', 'frio', 32, 1);
+
+-- CHARDONNAY
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('El Manto, Bobó. Agrelo, Mendoza', 'frio', 33, 1),
+('Trenel, Mâcon, Francia', 'frio', 33, 1),
+('Pascal Bouchard, Chablis, Francia', 'frio', 33, 1),
+('Zuccardi Q, Valle de Uco, Mendoza, Argentina', 'frio', 33, 1),
+('Church Road, Hawkes Bay, New Zeland', 'frio', 33, 1),
+('Marthe Henry Boillot Bourgogne "La Monatine"', 'frio', 33, 1),
+('Domaine J.A. Ferret Pouilly - Fuissé, Francia', 'frio', 33, 1),
+('Domaine Tessier Meursault Les Casse-Têtes', 'frio', 33, 1),
+('Fósil, Zuccardi. Valle de Uco, Mendoza, Argentina', 'frio', 33, 1);
+
+-- GODELLO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Abad Dom Bueno, Bierzo', 'frio', 34, 1),
+('O Luar do Sil, Valdeorras', 'frio', 34, 1),
+('Mauro, Castilla y Leon', 'frio', 34, 1),
+('Ultreia "La Claudina", Bierzo', 'frio', 34, 1);
+
+-- ALBARIÑO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Pazo de Seoane, Rías Baixas', 'frio', 35, 1),
+('Pazo de San Mauro, Rías Baixas', 'frio', 35, 1),
+('Tras da Viña, Zárate, Rías Baixas', 'frio', 35, 1);
+
+-- GEWÜRZTRAMINER
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Viñas del Vero, Somontano', 'frio', 36, 1),
+('Trimbach, Alsace, Francia', 'frio', 36, 1);
+
+-- XAREL∙LO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('L equilibrista, Cataluña', 'frio', 37, 1);
+
+-- MARSANNE, ROUSSANNE
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Rue des Poulies, AOP Saint Joseph, Francia', 'frio', 38, 1),
+('"Le Reverdy", 2008, Ferraton Père & Fils, Ermitage, Francia', 'frio', 38, 1);
+
+-- SAUVIGNON BLANC
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Premier Rendez-Vous, Côte de Gascogne, Francia', 'frio', 39, 1),
+('Little Beauty, Marlborough, New Zeland', 'frio', 39, 1),
+('Berthier, Pouilly Fumé, Francia', 'frio', 39, 1);
+
+-- VIURA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Obar, Rioja', 'frio', 40, 1),
+('Félix Azpilicueta Colección Privada, Rioja', 'frio', 40, 1);
+
+-- PINOT GRIS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Trimbach, Alsace, Francia', 'frio', 41, 1);
+
+-- RIESLING
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Schieferkopf, Eco, Via Saint Jacques, Alsacia, Francia', 'frio', 42, 1),
+('Dreissigacker Vintages, Rheinhessen, Alemania', 'frio', 42, 1),
+('Trimbach Cuvée Frederic Emile, Alsace, Francia', 'frio', 42, 1);
+
+-- PINOT BLANC
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Trimbach, Alsace, Francia', 'frio', 43, 1);
+
+-- TORRONTÉS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Serie A, Zuccardi, Valle de Uco, Mendoza, Argentina', 'frio', 44, 1);
+
+-- CÓDEGA, DONZELINHO, RABIGATO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Tiara, Niepoort, Douro, Portugal', 'frio', 45, 1);	
+
+-- ROSADOS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Rosado del día', 'frio', 4, 1);
+
+-- NARANJAS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Naranjo Mecánico, 70% chardonnay, 30% otras blancas, Agrelo, Mendoza, Argentina', 'frio', 5, 1),
+('La Transición, Madrid', 'frio', 5, 1);
+
+-- VINOS NATURALES, ECOLÓGICOS, BIODINÁMICOS - TINTOS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Cosmic Gratitud, Penedés, Marselán y Cariñena', 'frio', 46, 1),
+('Mephisto, Domaine de LEcu, Francia, Cabernet Franc', 'frio', 46, 1);
+
+-- VINOS NATURALES, ECOLÓGICOS, BIODINÁMICOS - BLANCOS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Cosmic Gratitud, Penedés, Sauvignon Blanc', 'frio', 47, 1),
+('Orthogneiss, Domaine de LEcu, Francia, Melón de Bourgogne', 'frio', 47, 1);
+
+-- VINOS DE JEREZ
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Fino Palomino, Harveys', 'frio', 6, 1),
+('Manzanilla, Viuda de Manjón "Leona"', 'frio', 6, 1),
+('Cream, Viuda de Manjón "Leona"', 'frio', 6, 1),
+('Oloroso, Viuda de Manjón "Leona"', 'frio', 6, 1);
+
+-- ESPUMOSOS - PET NAT / ANCESTRAL
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('"Inat", Garnacha, Sotomanrique, Madrid', 'frio', 48, 1);
+
+-- ESPUMOSOS - CAVAS por uva - MACABEO/XAREL°LO/PARELLADA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Essential Juve&Camps, Sant Sadurni D Anoia, Cataluña, Brut Reserva', 'frio', 49, 1),
+('225, Torelló, Cataluña, Brut Nature Gran Reserva', 'frio', 49, 1);
+
+-- ESPUMOSOS - CAVAS por uva - CHARDONNAY
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Juve & Camps Milesimé, Sant Sadurní D Anoia, Cataluña Brut Reserva', 'frio', 49, 1);
+
+-- ESPUMOSOS - CHAMPAGNE - AYALA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Brut Majeur', 'frio', 50, 1),
+('Rosé Majeur', 'frio', 50, 1),
+('Blanc de Blancs, Brut, 2008', 'frio', 50, 1);
+
+-- ESPUMOSOS - CHAMPAGNE - BOLLINGER
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Special Cuveé', 'frio', 50, 1),
+('"La Grande Anne"', 'frio', 50, 1);
+
+-- ESPUMOSOS - CHAMPAGNE - DEVAUX
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Grand Reserve, Brut, (70% Pinot Noir, 30% Chardonnay)', 'frio', 50, 1),
+('Cœur Des Bar Rosé', 'frio', 50, 1),
+('Cœur Des Bar, Brut (100% Pinot Noir)', 'frio', 50, 1);
+
+-- ESPUMOSOS - CHAMPAGNE - PERRIER-JOUËT
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('Blanc de Blancs (100% chardonnay)', 'frio', 50, 1);
+
+-- ESPUMOSOS - CHAMPAGNE - PALMER
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('La Reserve. Brut. (50% Chardonnay, 30% Pinot Noir, 20% Pinot Meunier)', 'frio', 50, 1),
+('La Reserve. Nature. (57% Chardonnay, 19% Pinot Noir, 24% Pinot Meunier)', 'frio', 50, 1),
+('La Reserve. Rosé. (45% Chardonnay, 35% Pinot Noir, 20% Pinot Meunier)', 'frio', 50, 1),
+('Blanc de Blancs. (100% Chardonnay)', 'frio', 50, 1);
+
+-- DE FAMILIA - ESPUMOSOS
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('NV Ayala Brut Majeur', 'frio', 51, 1),
+('2008 Ayala Blanc de Blancs 2008', 'frio', 51, 1),
+('NV Perrier-Jouët Grand Brut', 'frio', 51, 1),
+('NV Perrier-Jouët Blanc de blancs', 'frio', 51, 1),
+('2004 Perrier-Jouët "Belle Epoque" Blanc de blancs', 'frio', 51, 1),
+('NV Perrier-Jouët Blason Rosé', 'frio', 51, 1),
+('NV Devaux "Coeur des Bar" Blanc des noirs', 'frio', 51, 1),
+('NV Devaux "Coeur des Bar" Rosé', 'frio', 51, 1),
+('2014 Bollinger "La Grande Année"', 'frio', 51, 1),
+('NV Porte Noir "La Petite Porte" Grand Cru Blanc des blancs', 'frio', 51, 1),
+('NV Charles Heidsieck', 'frio', 51, 1),
+('NV Juvé & Camps "Reserva de la Familia" Rosé', 'frio', 51, 1);
+
+-- DE FAMILIA - BLANCO - RIOJA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2016 "Viña Gravonia" López de Heredia', 'frio', 52, 1),
+('2010 "Viña Tondonia" López de Heredia', 'frio', 52, 1),
+('2021 "5V" Abel Mendoza', 'frio', 52, 1),
+('2013 Felix Azpilicueta', 'frio', 52, 1);
+
+-- DE FAMILIA - BLANCO - RIBERA DEL DUERO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2019 Dominio del Águila "Viñas viejas" Albillo', 'frio', 52, 1),
+('2019 Dominio del Águila "Vino fino de paraje calizo"', 'frio', 52, 1);
+
+-- DE FAMILIA - BLANCO - RESTO DE ESPAÑA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2020 Raúl Pérez Ultreia "La Claudina" Bierzo', 'frio', 52, 1),
+('2022 O luar do Sil "Vides de Córgomo" Valdeorras', 'frio', 52, 1),
+('2023 Frontonio "XXIII Estrafalario" Aragón', 'frio', 52, 1),
+('2019 Frontonio "El jardín de las iguales" Aragón', 'frio', 52, 1),
+('2020 Ricard Rofes "Valldecomte" Montsant', 'frio', 52, 1),
+('2017 Castell del Remei "Gran reserva" Costers del Segre', 'frio', 52, 1),
+('2014 Belondrade & Lurton, Rueda (MAGNUM)', 'frio', 52, 1);
+
+-- DE FAMILIA - BLANCO - VIEJO MUNDO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2020 Riesling Rangen Grand Cru "Volcanique" Julien Schaal, Alsace, Francia', 'frio', 52, 1),
+('2020 St. Joseph Blanc "Rue des poulies" Famille de Böel-France, Rhône', 'frio', 52, 1),
+('2021 Pouilly-Fuissé J.A. Ferrret, Bourgogne', 'frio', 52, 1),
+('2017 Alsace Gewurztraminer "Roche Calcaire" Zind-Humbrecht, Alsace', 'frio', 52, 1),
+('2021 Viré Clessé Les héritiers du Comté Lafon, Bourgogne', 'frio', 52, 1),
+('2011 Alsace Riesling "Cuvée Frédéric Emile" Trimbach, Alsace', 'frio', 52, 1),
+('2012 Arbois Vin jaune, Rolet', 'frio', 52, 1),
+('2019 Hermitage blanc "Chevalier de Sterimberg" D. de la Chapelle, Rhône', 'frio', 52, 1),
+('2008 Hermitage blanc "Le Reverdy" Ferraton Père & Fils', 'frio', 52, 1),
+('2023 Chatêauneuf-du-pape blanc, Château De Beaucastel, Rhône', 'frio', 52, 1),
+('2020 Tokaj Furmint "Petracs" Tempos Vega Sicilia, Hungría (dry)', 'frio', 52, 1),
+('2019 Tokaj Furmint "Petracs" Tempos Vega Sicilia (dry)', 'frio', 52, 1);
+
+-- DE FAMILIA - BLANCO - NUEVO MUNDO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2022 Chardonnay "Botánico" Zuccardi, Gualtallary, Mendoza, Argentina', 'frio', 52, 1),
+('2021 Chardonnay "Fósil" Zuccardi, San Pablo, Mendoza', 'frio', 52, 1),
+('2019 Semillón "Finca los Membrillos" Paraje Altamira, Mendoza', 'frio', 52, 1),
+('2022 Chardonnay Sta. Rita Hills, Sandhi, California, USA', 'frio', 52, 1);
+
+-- DE FAMILIA - TINTO - RIOJA
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('1995 La Rioja Alta, "Gran Reserva 890"', 'frio', 53, 1),
+('2001 La Rioja Alta, "Gran Reserva 890"', 'frio', 53, 1),
+('2010 La Rioja Alta, "Gran Reserva 890"', 'frio', 53, 1),
+('1970 La Rioja Alta, "Gran Reserva 904"', 'frio', 53, 1),
+('1994 La Rioja Alta, "Gran Reserva 904"', 'frio', 53, 1),
+('2005 La Rioja Alta, "Gran Reserva 904"', 'frio', 53, 1),
+('2010 La Rioja Alta, "Gran Reserva 904"', 'frio', 53, 1),
+('2011 La Rioja Alta, "Gran Reserva 904"', 'frio', 53, 1),
+('1985 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('1989 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('1994 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('1998 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2000 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2001 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2004 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2007 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2008 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2009 La Rioja Alta, "Viña Ardanza"', 'frio', 53, 1),
+('2001 Marqués de Murrieta "Castillo Ygay" Gran Reserva Especial', 'frio', 53, 1),
+('2005 Marqués de Murrieta "Castillo Ygay" Gran Reserva Especial', 'frio', 53, 1),
+('2010 Marqués de Murrieta "Castillo Ygay" Gran Reserva Especial', 'frio', 53, 1),
+('1985 Muga, "Prado Enea" Gran Reserva', 'frio', 53, 1),
+('2006 Muga, "Prado Enea" Gran Reserva', 'frio', 53, 1),
+('2003 Muga, "Selección Especial"', 'frio', 53, 1),
+('1964 Campo Viejo Reserva', 'frio', 53, 1),
+('1980 Campo Viejo Reserva', 'frio', 53, 1),
+('1987 Campo Viejo Reserva', 'frio', 53, 1),
+('1966 CVNE "Imperial" Gran Reserva', 'frio', 53, 1),
+('1988 CVNE "Imperial" Gran Reserva', 'frio', 53, 1),
+('2015 CVNE "Imperial" Gran Reserva', 'frio', 53, 1),
+('NV CVNE "3º Año" Clarete', 'frio', 53, 1),
+('1989 Luis Cañas Reserva', 'frio', 53, 1),
+('1996 Luis Cañas Reserva', 'frio', 53, 1),
+('1970 Berberana Reserva', 'frio', 53, 1),
+('1976 Berberana "Carta de Oro"', 'frio', 53, 1),
+('1978 Berberana "Carta de Oro"', 'frio', 53, 1),
+('1983 Berberana Reserva', 'frio', 53, 1),
+('1986 Berberana Reserva', 'frio', 53, 1),
+('2019 Viñedos de Páganos "La Nieta"', 'frio', 53, 1),
+('2021 Viñedos de Páganos "La Nieta"', 'frio', 53, 1),
+('2022 Viñedos de Páganos "La Nieta"', 'frio', 53, 1),
+('1970 Viña Pomal', 'frio', 53, 1),
+('1982 Herencia Remondo Reserva', 'frio', 53, 1),
+('1985 Beronia Reserva', 'frio', 53, 1),
+('1999 López de Heredia "Viña Bosconia"', 'frio', 53, 1),
+('2011 Señorío de Cuzcurrita, Crianza', 'frio', 53, 1),
+('2011 200 Monges Reserva', 'frio', 53, 1),
+('2011 Faustino Gran Reserva', 'frio', 53, 1),
+('2014 Finca Martelo Reserva', 'frio', 53, 1),
+('2015 Ysios "Los Prados"', 'frio', 53, 1),
+('2016 Bodega Lanzaga "El Velado"', 'frio', 53, 1),
+('2016 Artuke "La condenada"', 'frio', 53, 1),
+('2016 Vega Sicilia "Macán"', 'frio', 53, 1),
+('2017 Vega Sicilia "Macán Clásico"', 'frio', 53, 1),
+('2019 Gil Berzal "Recoveco"', 'frio', 53, 1),
+('2021 Cuentaviñas "Los Yelsones"', 'frio', 53, 1),
+('2004 La Rioja Alta, "Viña Ardanza" MAGNUM', 'frio', 53, 1),
+('2005 La Rioja Alta, "Viña Ardanza" MAGNUM', 'frio', 53, 1);
+
+-- DE FAMILIA - TINTO - RIBERA DEL DUERO
+INSERT INTO plato (nombre_plato, tipo, id_categoria, id_restaurante) VALUES 
+('2010 Pago de Carraovejas', 'frio', 53, 1),
+('2014 Pago de Carraovejas', 'frio', 53, 1),
+('2017 Pago de Carraovejas', 'frio', 53, 1),
+('2021 Pingus', 'frio', 53, 1),
+('1989 Viña Mayor', 'frio', 53, 1),
+('1996 Abadía Retuerta "Primicia"', 'frio', 53, 1),
+('2016 Dominio del Águila "Canta la Perdiz"', 'frio', 53, 1),
+('2015 Tarsus "Finca el Canto"', 'frio', 53, 1),
+('2015 Pago de los Capellanes "Doroteo"', 'frio', 53, 1),
+('2015 Viña Pedrosa Reserva', 'frio', 53, 1),
+('2016 Vega Sicilia "Valbuena 5º"', 'frio', 53, 1),
+('2016 Vega Sicilia "Pintia"', 'frio', 53, 1),
+('2017 Vega Sicilia "Alión"', 'frio', 53, 1);

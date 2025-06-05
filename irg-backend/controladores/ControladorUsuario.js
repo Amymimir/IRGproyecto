@@ -1,56 +1,32 @@
-// Valida datos
-// Peticiones HTTP
-// Guardar, buscar y eliminar datos
+const Usuario = require('../entidades/Usuario');
 
-const usuarioService = require('../servicios/Registro');
-
-async function crearUsuario(req, res) {
-  const { nombre, apellidos, telefono, ciudad } = req.body;
-
-  // Validación básica de los campos requeridos
-  if (!nombre || !apellidos || !telefono || !ciudad) {
-    return res.status(400).json({
-      error: 'Todos los campos son necesarios: nombre, apellidos, teléfono y ciudad.',
-    });
-  }
-
+const crearUsuario = async (req, res) => {
   try {
-    const usuario = await usuarioService.registrarUsuario({ nombre, apellidos, telefono, ciudad });
-    res.status(201).json({ success: true, data: usuario });
+    const nuevoUsuario = await Usuario.registrar(req.body);
+    res.status(201).json(nuevoUsuario);
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
-async function listarUsuarios(req, res) {
+const listarUsuarios = async (req, res) => {
   try {
-    const usuario = await usuarioService.obtenerUsuarios();
-    res.status(200).json({ success: true, data: usuario });
+    const usuarios = await Usuario.obtenerTodos();
+    res.status(200).json(usuarios);
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ error: "No se pudieron obtener los usuarios." });
   }
-}
+};
 
-// Eliminar usuario por ID
-async function borrarUsuario(req, res) {
+const borrarUsuario = async (req, res) => {
   try {
-    const id_usuario = req.params.id;
-
-    if (!id_usuario) {
-      return res.status(400).json({ success: false, error: "Debes proporcionar un ID válido." });
-    }
-
-    const resultado = await usuarioService.eliminarUsuario(id_usuario);
-
-    if (!resultado.success) {
-      return res.status(404).json(resultado); // Error si el usuario no existe
-    }
-
-    res.status(200).json(resultado); // Confirmación de eliminación
+    const { id_usuario } = req.params;
+    const mensaje = await Usuario.eliminar(id_usuario);
+    res.status(200).json(mensaje);
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   crearUsuario,

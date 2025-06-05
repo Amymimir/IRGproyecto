@@ -1,45 +1,56 @@
 const pool = require('../BBDD/db');
 
-async function registrarUsuario({ nombre, apellidos, telefono, ciudad }) {
-  const query = `
-    INSERT INTO usuario (nombre, apellidos, telefono, ciudad)
-    VALUES (?, ?, ?, ?)
-  `;
-  const [resultado] = await pool.execute(query, [nombre, apellidos, telefono, ciudad]);
-
-  return {
-    id: resultado.insertId,
-    nombre,
-    apellidos,
-    telefono,
-    ciudad
-  };
-}
-
-async function obtenerUsuarios() {
-  const [rows] = await pool.query('SELECT * FROM usuario');
-  return rows;
-}
-
-async function eliminarUsuario(id_usuario) {
-    try {
-        if (!id_usuario) {
-            return { success: false, error: "Debes proporcionar el ID del usuario a eliminar." };
-        }
-
-        const query = `DELETE FROM usuario WHERE id_usuario = ?`;
-        const [resultado] = await pool.execute(query, [id_usuario]);
-
-        if (resultado.affectedRows === 0) {
-            return { success: false, error: "No se encontró un usuario con ese ID." };
-        }
-
-        return { success: true, message: "Usuario con ID:"+id_usuario+" eliminado correctamente." };
-    } catch (error) {
-        console.error("Error al eliminar usuario:", error.message);
-        return { success: false, error: "No se pudo eliminar el usuario." };
-    }
+class Usuario {
+  constructor({ id_usuario, nombre, apellidos, telefono, ciudad }) {
+    this.id_usuario = id_usuario;
+    this.nombre = nombre;
+    this.apellidos = apellidos;
+    this.telefono = telefono;
+    this.ciudad = ciudad;
   }
 
-module.exports = { registrarUsuario, obtenerUsuarios, eliminarUsuario }
- 
+  /* Registrar usuario */
+
+  static async registrar({ nombre, apellidos, telefono, ciudad }) {
+    if (!nombre || !apellidos || !telefono || !ciudad) {
+      throw new Error("Todos los campos son obligatorios.");
+    }
+
+    const query = `INSERT INTO usuario (nombre, apellidos, telefono, ciudad) VALUES (?, ?, ?, ?)`;
+    const [resultado] = await pool.execute(query, [nombre, apellidos, telefono, ciudad]);
+
+    return new Usuario({
+      id_usuario: resultado.insertId,
+      nombre,
+      apellidos,
+      telefono,
+      ciudad
+    });
+  }
+
+  /* Obtener todos los usuarios */
+
+  static async obtenerTodos() {
+    const [rows] = await pool.query('SELECT * FROM usuario');
+    return rows.map(row => new Usuario(row));
+  }
+
+  /* Eliminar usuario por ID */
+
+  static async eliminar(id_usuario) {
+    if (!id_usuario) {
+      throw new Error("Debes proporcionar el ID del usuario a eliminar.");
+    }
+
+    const query = `DELETE FROM usuario WHERE id_usuario = ?`;
+    const [resultado] = await pool.execute(query, [id_usuario]);
+
+    if (resultado.affectedRows === 0) {
+      throw new Error("No se encontró un usuario con ese ID.");
+    }
+
+    return { message: `Usuario con ID: ${id_usuario} eliminado correctamente.` };
+  }
+}
+
+module.exports = Usuario;
