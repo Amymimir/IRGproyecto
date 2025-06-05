@@ -21,7 +21,7 @@ const astorPlatos: Plato[] = [
         name: "Bruschettas",
         description: "Pan tostado con tomate, albahaca y aceite de oliva",
         image: require('../assets/images/bruschettas.png'),
-        category: "Entradas",
+        category: "Entrantes",
         subCategory: "Frio",
         score: 4.8
     },
@@ -29,7 +29,7 @@ const astorPlatos: Plato[] = [
         name: "Ravioles de Ricota",
         description: "Pasta casera rellena con ricota y espinaca, salsa fileto.",
         image: require('../assets/images/ravioles_ricota.png'),
-        category: "Principales",
+        category: "Primeros",
         subCategory: "Caliente",
         score: 4.7
     },
@@ -56,7 +56,7 @@ const tacosPlatos: Plato[] = [
         name: "Tacos al Pastor",
         description: "Tacos de cerdo marinado con piña y cebolla.",
         image: require('../assets/images/tacos_al_pastor.png'),
-        category: "Tacos",
+        category: "Primeros",
         subCategory: "Caliente",
         score: 4.9
     },
@@ -64,7 +64,7 @@ const tacosPlatos: Plato[] = [
         name: "Nachos Especiales",
         description: "Totopos con queso, jalapeños y guacamole.",
         image: require('../assets/images/nachos_especiales.png'),
-        category: "Nachos",
+        category: "Entrantes",
         subCategory: "Caliente",
         score: 4.6
     },
@@ -72,7 +72,7 @@ const tacosPlatos: Plato[] = [
         name: "Guacamole",
         description: "Salsa de aguacate con lima, tomate y cebolla.",
         image: require('../assets/images/guacamole.png'),
-        category: "Salsas",
+        category: "Entrantes",
         subCategory: "Frio",
         score: 4.5
     },
@@ -90,7 +90,7 @@ export const restaurantsData: Record<string, Restaurante> = {
     astor: {
         name: "Astor",
         ranking: 4.8,
-        menu: ["Entradas", "Principales", "Postres", "Bebidas"],
+        menu: ["Entrantes", "Primeros", "Segundos", "Postres", "Bebidas"],
         logo: require('../assets/images/astor_logo.png'),
         platos: astorPlatos,
         topItems: astorPlatos
@@ -102,7 +102,7 @@ export const restaurantsData: Record<string, Restaurante> = {
     "el-rey-de-los-tacos": {
         name: "El Rey de los Tacos",
         ranking: 4.5,
-        menu: ["Tacos", "Nachos", "Salsas", "Bebidas"],
+        menu: ["Entrantes", "Primeros", "Segundos", "Postres", "Bebidas"],
         logo: require('../assets/images/rey_de_los_tacos_logo.png'),
         platos: tacosPlatos,
         topItems: tacosPlatos

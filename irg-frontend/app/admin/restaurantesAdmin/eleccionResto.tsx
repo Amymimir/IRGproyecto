@@ -1,38 +1,43 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { restaurantsData, restaurantAliases } from '../../../constants/data';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { useRouter, useLocalSearchParams } from 'expo-router'
+import { restaurantsData, restaurantAliases } from '../../../constants/data'
 
 export default function EleccionRubroAdmin() {
-    const router = useRouter();
-    const { codigo } = useLocalSearchParams();
+    const router = useRouter()
+    const { codigo } = useLocalSearchParams()
+    const alias = restaurantAliases[codigo as string]
+    const restaurant = alias ? restaurantsData[alias] : undefined
 
-    const alias = restaurantAliases[codigo as string];
-    const restaurant = restaurantsData[alias];
+    if (!alias || !restaurant) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Restaurante no encontrado</Text>
+            </View>
+        )
+    }
 
     const navigateToGestion = () => {
-        router.push(`/admin/restaurantesAdmin/${codigo}`);
-    };
+        router.push(`/admin/restaurantesAdmin/${codigo}`)
+    }
 
     const navigateToResenas = () => {
-        router.push(`/admin/restaurantesAdmin/resenias/${codigo}`);
-    };
+        router.push(`/admin/restaurantesAdmin/resenias/${codigo}`)
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                {restaurant?.logo && (
-                    <Image
-                        source={restaurant.logo}
-                        style={{
-                            width: 100,
-                            height: 100,
-                            borderRadius: 50,
-                            borderWidth: 1.8,
-                            borderColor: '#000',
-                            marginBottom: 15,
-                        }}
-                    />
-                )}
+                <Image
+                    source={restaurant.logo}
+                    style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 50,
+                        borderWidth: 1.8,
+                        borderColor: '#000',
+                        marginBottom: 15,
+                    }}
+                />
             </View>
             <Text style={styles.title}>GESTIONAR</Text>
             <Text style={styles.title}>NEGOCIO</Text>
@@ -45,7 +50,7 @@ export default function EleccionRubroAdmin() {
                 </TouchableOpacity>
             </View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -76,23 +81,21 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30,
-        width: 100,
+        marginTop: 30
     },
     button: {
         backgroundColor: '#6c1f2c',
-        paddingVertical: 14,
-        paddingHorizontal: 25,
-        borderRadius: 10,
-        margin: 10,
-        shadowRadius: 5,
-        elevation: 4,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        margin: 11,
+        shadowRadius: 4,
+        elevation: 3,
     },
     buttonText: {
         color: '#fff',
         fontSize: 16.5,
         textAlign: 'center'
     },
-});
+})

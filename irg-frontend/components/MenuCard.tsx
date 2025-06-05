@@ -16,11 +16,7 @@ export default function MenuCard({ title, description, image, subCategory, onEdi
         <View style={styles.card}>
             <Image source={typeof image === 'string' ? { uri: image } : image} style={styles.image} />
             <View style={styles.content}>
-                <Text style={styles.titleLine}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.divider}>|</Text>
-                    <Text style={styles.subCategory}>{subCategory}</Text>
-                </Text>
+                <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
             </View>
             <TouchableOpacity onPress={onEdit} style={styles.iconButton}>
@@ -52,25 +48,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
     },
-    titleLine: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        fontSize: 16,
-        fontFamily: 'Playfair',
-        marginBottom: 2,
-    },
     title: {
         color: '#6c1f2c',
         fontWeight: 'bold',
-    },
-    divider: {
-        color: '#aaa',
-        fontWeight: 'normal',
-    },
-    subCategory: {
-        color: '#888',
-        fontWeight: 'normal',
-        fontSize: 14,
     },
     description: {
         fontSize: 14,

@@ -12,8 +12,12 @@ type CategoriasProps = {
     setCategoria: (categoria: string) => void
 }
 
+const ORDEN_CATEGORIAS = ['Entrantes', 'Primeros', 'Segundos', 'Postres', 'Bebidas']
+
 export default function Categorias({ categorias, activa, setCategoria }: CategoriasProps) {
-    const unicasPrincipales = Array.from(new Set(categorias.map(cat => cat.principal)))
+    const unicasPrincipales = ORDEN_CATEGORIAS.filter(cat =>
+        categorias.some(c => c.principal === cat)
+    )
 
     return (
         <View style={styles.container}>
@@ -23,9 +27,9 @@ export default function Categorias({ categorias, activa, setCategoria }: Categor
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scroll}
             >
-                {unicasPrincipales.map((principal, index) => (
+                {unicasPrincipales.map((principal) => (
                     <TouchableOpacity
-                        key={`${principal}-${index}`}
+                        key={principal}
                         style={[styles.button, activa === principal && styles.activa]}
                         onPress={() => setCategoria(principal)}
                     >

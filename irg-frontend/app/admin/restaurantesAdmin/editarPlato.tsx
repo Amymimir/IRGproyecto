@@ -14,6 +14,7 @@ import { restaurantAliases } from '../../../constants/data'
 import { useRestaurantes } from '../../../contexts/RestoContext'
 import { Check, Trash2, Star, ArrowLeft } from 'lucide-react-native'
 
+const categorias = ['Entrantes', 'Primeros', 'Segundos', 'Postres', 'Bebidas']
 const opcionesSub = ['Frio', 'Caliente']
 
 export default function EditarPlato() {
@@ -23,9 +24,20 @@ export default function EditarPlato() {
     const alias = restaurantAliases[codigo as string]
     const { restaurantes, actualizarPlato, eliminarPlato } = useRestaurantes()
 
+    const restaurante = alias ? restaurantes?.[alias] : undefined
     const platoIndex = parseInt(index as string)
-    const item = restaurantes[alias].platos[platoIndex]
-    const categorias = restaurantes[alias].menu
+
+    if (!alias || !restaurante || !restaurante.platos[platoIndex]) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f2ebdd' }}>
+                <Text style={{ color: '#6c1f2c', fontSize: 16, fontFamily: 'Playfair' }}>
+                    Plato no encontrado.
+                </Text>
+            </View>
+        )
+    }
+
+    const item = restaurante.platos[platoIndex]
 
     const [name, setName] = useState(item.name)
     const [description, setDescription] = useState(item.description)
@@ -199,12 +211,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 15,
         backgroundColor: '#f2ebdd',
-        zIndex: 30,
+        zIndex: 30
     },
     backButton: {
         padding: 4,
         marginBottom: 0,
-        alignSelf: 'flex-start',
+        alignSelf: 'flex-start'
     },
     title: {
         fontSize: 26,

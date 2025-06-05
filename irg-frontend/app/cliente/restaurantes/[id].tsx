@@ -1,21 +1,33 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, StyleSheet, View } from 'react-native'
 import Header from '../../../components/Header'
 import Ranking from '../../../components/Ranking'
 import Categorias from '../../../components/Categorias'
 import { useRestaurantes } from '../../../contexts/RestoContext'
-import { ArrowLeft } from 'lucide-react-native'
 import { useState, useRef } from 'react'
 import type { ScrollView as ScrollViewType } from 'react-native'
 import MenuCardCliente from '../../../components/MenuCardCliente'
+
+const ORDEN_CATEGORIAS = ['Entrantes', 'Primeros', 'Segundos', 'Postres', 'Bebidas']
+const ORDEN_SUB = ['Frio', 'Caliente']
 
 export default function RestauranteClientePage() {
     const { id } = useLocalSearchParams()
     const router = useRouter()
     const { restaurantes, votarPlato } = useRestaurantes()
 
+    if (!id || !restaurantes[id as string]) {
+        return (
+            <View style={styles.wrapper}>
+                <Text style={styles.sectionTitle}>Restaurante no encontrado</Text>
+            </View>
+        )
+    }
+
     const restaurant = restaurantes[id as string]
-    const categorias = restaurant.menu
+    const categorias = ORDEN_CATEGORIAS.filter(cat =>
+        restaurant.platos.some(p => p.category === cat)
+    )
 
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0])
     const scrollRef = useRef<ScrollViewType>(null)
@@ -25,7 +37,7 @@ export default function RestauranteClientePage() {
         setCategoriaSeleccionada(cat)
         const y = seccionesRef.current[cat]
         if (scrollRef.current && y !== undefined) {
-            scrollRef.current.scrollTo({ y, animated: true })
+            scrollRef.current.scrollTo({ y: y - 80, animated: true })
         }
     }
 
@@ -35,44 +47,58 @@ export default function RestauranteClientePage() {
 
     return (
         <View style={styles.wrapper}>
-            <View style={styles.headerWrapper}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-                    <ArrowLeft size={30} color="#000" />
-                </TouchableOpacity>
-            </View>
-
-            <ScrollView ref={scrollRef} contentContainerStyle={styles.container} stickyHeaderIndices={[3]}>
-                <Header restaurantName={restaurant.name} codigo={id as string} />
+            <ScrollView
+                ref={scrollRef}
+                contentContainerStyle={styles.container}
+                stickyHeaderIndices={[0, 3]}
+                keyboardShouldPersistTaps="handled"
+            >
+                <Header />
                 <Ranking topItems={restaurant.topItems} />
-
                 <Text style={styles.sectionTitle}>~ Nuestra carta ~</Text>
-
                 <View style={styles.stickyCategorias}>
                     <Categorias
-                        categorias={categorias}
+                        categorias={categorias.map(cat => ({ principal: cat, secundaria: '' }))}
                         activa={categoriaSeleccionada}
                         setCategoria={handleCategoriaPress}
                     />
                 </View>
 
                 {categorias.map((cat, catIndex) => {
-                    const platos = restaurant.platos.filter(p => p.category === cat)
+                    const subCats = ORDEN_SUB.filter(sub =>
+                        restaurant.platos.some(p => p.category === cat && p.subCategory === sub)
+                    )
+
                     return (
                         <View key={catIndex} onLayout={e => guardarPosicion(cat, e.nativeEvent.layout.y)}>
                             <Text style={styles.categoryTitle}>{cat}</Text>
-                            {platos.map((item, index) => {
-                                const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
+                            {subCats.map((subCat, subIndex) => {
+                                const platos = restaurant.platos.filter(
+                                    p => p.category === cat && p.subCategory === subCat
+                                )
+
                                 return (
-                                    <MenuCardCliente
-                                        key={`${cat}-${index}`}
-                                        title={item.name}
-                                        description={item.description}
-                                        image={item.image}
-                                        index={globalIndex}
-                                        score={item.score}
-                                        category={cat} 
-                                        onVote={(rating: number) => votarPlato(id as string, globalIndex, rating)}
-                                    />
+                                    <View key={`${cat}-${subCat}`}>
+                                        <Text style={styles.subcategoryTitle}>{`${cat} - ${subCat}`}</Text>
+                                        {platos.map((item, index) => {
+                                            const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
+                                            return (
+                                                <MenuCardCliente
+                                                    key={`${cat}-${subCat}-${index}`}
+                                                    title={item.name}
+                                                    description={item.description}
+                                                    image={item.image}
+                                                    index={globalIndex}
+                                                    score={item.score}
+                                                    category={cat}
+                                                    subCategory={subCat}
+                                                    onVote={(rating: number) =>
+                                                        votarPlato(id as string, globalIndex, rating)
+                                                    }
+                                                />
+                                            )
+                                        })}
+                                    </View>
                                 )
                             })}
                             <View style={styles.separator} />
@@ -93,18 +119,6 @@ const styles = StyleSheet.create({
         padding: 12,
         paddingTop: 0,
         paddingBottom: 90,
-    },
-    headerWrapper: {
-        height: 60,
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        backgroundColor: '#f2ebdd',
-        zIndex: 30,
-    },
-    backButton: {
-        padding: 4,
-        marginBottom: 0,
-        alignSelf: 'flex-start',
     },
     sectionTitle: {
         backgroundColor: '#6c1f2c',
@@ -128,6 +142,14 @@ const styles = StyleSheet.create({
         color: '#6c1f2c',
         marginBottom: 8,
         marginTop: 12,
+    },
+    subcategoryTitle: {
+        fontSize: 16,
+        fontFamily: 'Playfair',
+        color: '#333',
+        marginBottom: 6,
+        marginTop: 10,
+        paddingLeft: 6,
     },
     separator: {
         height: 1,

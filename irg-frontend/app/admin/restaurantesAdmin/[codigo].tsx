@@ -16,6 +16,17 @@ export default function RestauranteAdminPage() {
     const router = useRouter()
     const alias = restaurantAliases[codigo as string]
     const { restaurantes } = useRestaurantes()
+
+    if (!alias || !restaurantes || Object.keys(restaurantes).length === 0 || !restaurantes[alias]) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f2ebdd' }}>
+                <Text style={{ color: '#6c1f2c', fontSize: 16, fontFamily: 'Playfair' }}>
+                    Cargando restaurante...
+                </Text>
+            </View>
+        )
+    }
+
     const restaurant = restaurantes[alias]
 
     const categorias: CategoriaConSub[] = Array.from(
@@ -64,6 +75,9 @@ export default function RestauranteAdminPage() {
 
     const categoriasUnicas = [...new Set(restaurant.platos.map(p => p.category))]
 
+    const ORDEN_CATEGORIAS = ['Entrantes', 'Primeros', 'Segundos', 'Postres', 'Bebidas']
+    const ORDEN_SUB = ['Frio', 'Caliente']
+
     return (
         <View style={styles.wrapper}>
             <ScrollView
@@ -73,27 +87,23 @@ export default function RestauranteAdminPage() {
                 keyboardShouldPersistTaps="handled"
             >
                 <Header />
-
                 <View style={styles.rankingWrapper}>
                     <Ranking topItems={restaurant.topItems} />
                 </View>
-
                 <Text style={styles.sectionTitle}>~ Gestión de Carta ~</Text>
-
                 <View style={styles.addButtonWrapper}>
                     <TouchableOpacity
                         style={styles.addButton}
                         onPress={() =>
                             router.push({
                                 pathname: '/admin/restaurantesAdmin/agregarPlato',
-                                params: { codigo },
+                                params: { codigo: codigo as string },
                             })
                         }
                     >
                         <Text style={styles.addButtonText}>+ Agregar Nuevo Plato</Text>
                     </TouchableOpacity>
                 </View>
-
                 <View style={styles.stickyCategorias}>
                     <Categorias
                         categorias={categorias}
@@ -101,46 +111,51 @@ export default function RestauranteAdminPage() {
                         setCategoria={handleCategoriaPress}
                     />
                 </View>
-
-                {categoriasUnicas.map((cat) => {
-                    const platos = restaurant.platos.filter(p => p.category === cat)
-
+                {ORDEN_CATEGORIAS.filter(cat => categoriasUnicas.includes(cat)).map((catPrincipal, catIndex) => {
+                    const subCats = ORDEN_SUB.filter(sub =>
+                        restaurant.platos.some(p => p.category === catPrincipal && p.subCategory === sub)
+                    )
                     return (
-                        <View
-                            key={cat}
-                            onLayout={e => guardarPosicion(cat, e.nativeEvent.layout.y)}
-                        >
-                            <Text style={styles.categoryTitle}>{cat}</Text>
-
-                            {platos.map((item) => {
-                                const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
-
+                        <View key={catPrincipal} onLayout={e => guardarPosicion(catPrincipal, e.nativeEvent.layout.y)}>
+                            <Text style={styles.categoryTitle}>{catPrincipal}</Text>
+                            {subCats.map((subCat, subIndex) => {
+                                const platosFiltrados = restaurant.platos.filter(
+                                    p => p.category === catPrincipal && p.subCategory === subCat
+                                )
                                 return (
-                                    <View
-                                        key={`${cat}-${item.name}`}
-                                        onLayout={e => guardarPlatoPosicion(item.name, e.nativeEvent.layout.y)}
-                                    >
-                                        <MenuCard
-                                            title={item.name}
-                                            description={item.description}
-                                            image={item.image}
-                                            subCategory={item.subCategory}
-                                            category={item.category}
-                                            onEdit={() =>
-                                                router.push({
-                                                    pathname: '/admin/restaurantesAdmin/editarPlato',
-                                                    params: {
-                                                        codigo,
-                                                        index: String(globalIndex),
-                                                    },
-                                                })
-                                            }
-                                        />
+                                    <View key={`${catPrincipal}-${subCat}`}>
+                                        <Text style={styles.subcategoryTitle}>{`${catPrincipal} - ${subCat}`}</Text>
+                                        {platosFiltrados.map((item) => {
+                                            const globalIndex = restaurant.platos.findIndex(p => p.name === item.name)
+                                            return (
+                                                <View
+                                                    key={`${catPrincipal}-${item.name}`}
+                                                    onLayout={e => guardarPlatoPosicion(item.name, e.nativeEvent.layout.y)}
+                                                >
+                                                    <MenuCard
+                                                        title={item.name}
+                                                        description={item.description}
+                                                        image={item.image}
+                                                        subCategory={item.subCategory}
+                                                        category={item.category}
+                                                        onEdit={() =>
+                                                            router.push({
+                                                                pathname: '/admin/restaurantesAdmin/editarPlato',
+                                                                params: {
+                                                                    codigo: codigo as string,
+                                                                    index: String(globalIndex),
+                                                                },
+                                                            })
+                                                        }
+                                                    />
+                                                </View>
+                                            )
+                                        })}
+                                        {subIndex < subCats.length - 1 && <View style={styles.subSeparator} />}
                                     </View>
                                 )
                             })}
-
-                            <View style={styles.separator} />
+                            {catIndex < ORDEN_CATEGORIAS.length - 1 && <View style={styles.separator} />}
                         </View>
                     )
                 })}
@@ -201,9 +216,23 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginTop: 12,
     },
+    subcategoryTitle: {
+        fontSize: 16,
+        fontFamily: 'Playfair',
+        color: '#333',
+        marginBottom: 6,
+        marginTop: 10,
+        paddingLeft: 6,
+    },
     separator: {
         height: 1,
         backgroundColor: '#6c1f2c',
         marginVertical: 16,
+    },
+    subSeparator: {
+        height: 1,
+        backgroundColor: '#ccc',
+        marginVertical: 10,
+        marginHorizontal: 4,
     },
 })
