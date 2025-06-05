@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, Alert, Pressable, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
+import React from 'react';
 
 const codigosValidos = ['astor2024', 'tacos2023'];
 
