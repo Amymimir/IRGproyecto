@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
+import { Linking } from 'react-native';
 
 const phonePrefixes = [
   { code: '+34', country: 'España' },
@@ -78,8 +79,8 @@ export default function RegisterScreen() {
         <Text style={styles.title}>REGÍSTRATE</Text>
 
         <View style={styles.counterContainer}>
-          <Text style={styles.counterText}>Cata oculta</Text>
-          <Text style={styles.counterNumber}>HOLAAAA</Text>
+          <img src="" alt="Logo de IRG" width="300"/>
+
         </View>
 
         <Text style={styles.label}>Nombre</Text>
@@ -176,7 +177,21 @@ export default function RegisterScreen() {
             }}
           />
           <Text style={styles.checkboxText}>
-            BLA BLA BLA HE LEÍDO Y ACEPTADO LOS TÉRMINOS QUE NO SE QUE QUE NO SE CUANTOS
+            Acepto los {' '}
+            <Text
+              style={{ color: 'blue' }}
+              onPress={() => Linking.openURL('https://drive.google.com/file/d/18LpfBs-Bql9r9_gIwcGttFyQdwIycA5E/view?usp=sharing')}
+            >
+              Términos y Condiciones
+            </Text>{' '}
+            y la{' '}
+            <Text
+              style={{ color: 'blue' }}
+              onPress={() => Linking.openURL('https://drive.google.com/file/d/1p6Liin_LIu-Ed9DLa1sMwftDRb9yYUE5/view?usp=sharing')}
+            >
+              Política de Privacidad 
+            </Text>
+
           </Text>
         </TouchableOpacity>
 
