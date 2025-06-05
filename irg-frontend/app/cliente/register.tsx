@@ -91,11 +91,28 @@ export default function RegisterScreen() {
     return true;
   };
 
-  const handleSubmit = () => {
-    if (isValid()) {
+const handleSubmit = async () => {
+  if (isValid()) {
+    try {
+      await fetch("http://localhost:3000/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          apellidos: formData.apellidos,
+          telefono: selectedPrefix + formData.telefono,
+          ciudad: selectedComunidad,
+        }),
+      });
       router.replace("/cliente/restoBuscador");
+    } catch (error: any) {
+      Alert.alert("Error", "No se pudo registrar el usuario. Error: " + error.message);
     }
-  };
+  }
+};
+
 
   return (
     <ScrollView
