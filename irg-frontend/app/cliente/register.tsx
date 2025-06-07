@@ -95,7 +95,7 @@ export default function RegisterScreen() {
 const handleSubmit = async () => {
   if (isValid()) {
     try {
-      await fetch(`${process.env.EXPO_PUBLIC_BACKEND_NODEJS}/usuarios`, {
+      await fetch(process.env.EXPO_PUBLIC_BACKEND_NODEJS + `/usuarios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

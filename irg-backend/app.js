@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+
 const usuarioRutas = require('./rutas/usuarioRuta');
 const restauranteRutas = require('./rutas/restauranteRuta');
 const categoriaRutas = require('./rutas/categoriaRuta');
@@ -8,6 +10,8 @@ const resenaRuta = require("./rutas/resenaRuta");
 
 const app = express();
 app.use(express.json());
+
+app.use(cors());
 
 // Rutas
 app.use('/usuarios', usuarioRutas);
