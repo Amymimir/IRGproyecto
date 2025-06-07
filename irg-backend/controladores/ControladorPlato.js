@@ -11,7 +11,8 @@ const registrarPlato = async (req, res) => {
 
 const listarPlatos = async (req, res) => {
   try {
-    const platos = await Plato.obtenerTodos();
+    const { id_restaurante, id_categoria } = req.query;
+    const platos = await Plato.obtenerTodos({ id_restaurante, id_categoria });
     res.status(200).json(platos);
   } catch (error) {
     res.status(500).json({ error: "No se pudo obtener la lista de platos." });

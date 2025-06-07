@@ -39,6 +39,28 @@ class Plato {
     return rows.map(row => new Plato(row));
   }
 
+  /* Obtener todos los platos, con filtros opcionales */
+  static async obtenerTodos({ id_restaurante, id_categoria } = {}) {
+    let query = 'SELECT * FROM plato';
+    const params = [];
+    const conditions = [];
+
+    if (id_restaurante) {
+      conditions.push('id_restaurante = ?');
+      params.push(id_restaurante);
+    }
+    if (id_categoria) {
+      conditions.push('id_categoria = ?');
+      params.push(id_categoria);
+    }
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    const [rows] = await pool.query(query, params);
+    return rows.map(row => new Plato(row));
+  }
+
   /* Eliminar plato */
 
   static async eliminar(id_plato) {

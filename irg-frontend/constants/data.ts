@@ -8,6 +8,7 @@ export type Plato = {
 }
 
 export type Restaurante = {
+    id?: number
     name: string
     ranking: number
     menu: string[]
@@ -88,6 +89,7 @@ const tacosPlatos: Plato[] = [
 
 export const restaurantsData: Record<string, Restaurante> = {
     astor: {
+        id: 1,
         name: "Astor",
         ranking: 4.8,
         menu: ["Entrantes", "Primeros", "Segundos", "Postres", "Bebidas"],
@@ -100,6 +102,7 @@ export const restaurantsData: Record<string, Restaurante> = {
             .map(p => ({ name: p.name, score: p.score ?? 0 }))
     },
     "el-rey-de-los-tacos": {
+        id: 2,
         name: "El Rey de los Tacos",
         ranking: 4.5,
         menu: ["Entrantes", "Primeros", "Segundos", "Postres", "Bebidas"],

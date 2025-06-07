@@ -11,8 +11,10 @@ import {
   Image,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft, KeyIcon } from "lucide-react-native";
+import { ArrowLeft } from "lucide-react-native";
 import { Linking } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const phonePrefixes = [
@@ -95,7 +97,7 @@ export default function RegisterScreen() {
 const handleSubmit = async () => {
   if (isValid()) {
     try {
-      await fetch(process.env.EXPO_PUBLIC_BACKEND_NODEJS + `/usuarios`, {
+      const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_NODEJS + `/usuarios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,9 +107,13 @@ const handleSubmit = async () => {
           apellidos: formData.apellidos,
           telefono: selectedPrefix + formData.telefono,
           ciudad: selectedComunidad,
-          
         }),
       });
+
+      const user = await response.json();
+      console.log("Usuario registrado:", user);
+      await AsyncStorage.setItem("userId", user.id_usuario);
+
       router.replace("/cliente/restoBuscador");
     } catch (error: any) {
       Alert.alert("Error", "No se pudo registrar el usuario. Error: " + error.message);
