@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
+import { ArrowLeft, KeyIcon } from "lucide-react-native";
 import { Linking } from "react-native";
 
 const phonePrefixes = [
@@ -104,6 +104,7 @@ const handleSubmit = async () => {
           apellidos: formData.apellidos,
           telefono: selectedPrefix + formData.telefono,
           ciudad: selectedComunidad,
+          
         }),
       });
       router.replace("/cliente/restoBuscador");
