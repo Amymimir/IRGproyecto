@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
 import { Linking } from "react-native";
 
+
 const phonePrefixes = [
   { code: "+34", country: "España" },
   { code: "+1", country: "EEUU" },
@@ -94,7 +95,7 @@ export default function RegisterScreen() {
 const handleSubmit = async () => {
   if (isValid()) {
     try {
-      await fetch("http://192.168.1.146:3000/usuarios", {
+      await fetch(`${process.env.EXPO_PUBLIC_BACKEND_NODEJS}/usuarios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
